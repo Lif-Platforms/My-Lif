@@ -1,8 +1,10 @@
 import Logo from "./assets/Lif_Logo.png"
 import './login.css';
 import { login } from "./scripts/login";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+    const navigate = useNavigate(); 
 
     // Function for handling the login process
     async function handle_login() {
@@ -19,9 +21,15 @@ function Login() {
         const password = password_input.value; 
 
         // Logs in the user with the lif auth server
-        const login_status = await login(username, password);
+        try {
+            const login_status = await login(username, password);
+            console.log("login Status: " + login_status);
+            login_button.innerHTML = "Done!";
+            navigate("/");
 
-        
+          } catch (error) {
+            console.error("Login failed:", error);
+          }
     }   
 
     return(
