@@ -11,6 +11,7 @@ body, html {
 .LoginPage {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center; /* Add this line to vertically center the content */
     background: rgb(14, 219, 143);
     background: linear-gradient(0deg, rgba(14, 219, 143, 1) 0%, rgba(0, 212, 255, 1) 100%);
@@ -26,11 +27,11 @@ body, html {
     display: block;
     text-align: center;
     border: 1px solid gray;
-    width: fit-content;
     height: fit-content;
     padding: 50px;
     border-radius: 1em;
     background-color: white;
+    width: 250px;
 }
 
 .LoginForm input {
@@ -89,6 +90,30 @@ body, html {
 }
 
 .LoginForm a {
+    color: rgb(0, 153, 255);
+    text-decoration: solid underline rgb(0, 153, 255);
+}
+
+.login-status {
+    color: red;
+    display: block;
+    padding-bottom: 5px;
+}
+
+.create-account {
+    display: block;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 1em;
+    width: 250px;
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: center;
+    padding-bottom: 20px;
+    margin-top: 15px;
+}
+
+.create-account a {
     color: rgb(0, 153, 255);
     text-decoration: solid underline rgb(0, 153, 255);
 }

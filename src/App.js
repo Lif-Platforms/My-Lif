@@ -1,23 +1,19 @@
 import './App.css';
 // eslint-disable-next-line
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './login'; 
+import Login from './pages/login'; 
+import Home from './pages/home';
+import Settings from './pages/settings';
+import CreateAccount from './pages/create account';
 
-function Home() {
-  return (
-    <div className="App">
-      <header>
-        <h1>Welcome Back [Your Name]</h1>
-      </header>
-    </div>
-  );
-}
 
 function App() {
   return (
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path='/settings' element={<Settings />} />
+        <Route path='/create_account' element={<CreateAccount />} />
       </Routes>
   );
 }

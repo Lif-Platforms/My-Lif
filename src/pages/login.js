@@ -1,6 +1,5 @@
-import Logo from "./assets/Lif_Logo.png"
-import './login.css';
-import { login } from "./scripts/login";
+import Logo from "../assets/Lif_Logo.png"
+import '../css/login.css';
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -21,15 +20,33 @@ function Login() {
         const password = password_input.value; 
 
         // Logs in the user with the lif auth server
-        try {
-            const login_status = await login(username, password);
-            console.log("login Status: " + login_status);
-            login_button.innerHTML = "Done!";
-            navigate("/");
+        fetch(`http://localhost:8002/login/${username}/${password}`)
+        .then(response => {
+            if (response.ok) {
+            return response.json(); // Convert response to JSON
+            } else {
+            throw new Error('Request failed with status code: ' + response.status);
+            }
+        })
+        .then(data => {
+            // Work with the data
+            console.log(data);
+            
+            if (data.Status === "Successful") {
+                document.cookie = "LIF_TOKEN=" + data.Token;
+                document.cookie = "LIF_USERNAME=" + username;
 
-          } catch (error) {
-            console.error("Login failed:", error);
-          }
+                navigate('/');
+            } else {
+                document.getElementById('login_status').innerHTML = "Incorrect Username or Password";
+                document.getElementById('login_button').innerHTML = "Login";
+                document.getElementById('login_button').disabled = false;
+            }
+        })
+        .catch(error => {
+            // Handle any errors
+            console.error(error);
+        });
     }   
 
     return(
@@ -45,7 +62,12 @@ function Login() {
                     <button type="button" id='login_button' onClick={handle_login}>Login</button>
                 </form>
                 <br />
+                <span id="login_status" className="login-status"></span>
                 <a href="#">Forgot Password</a>
+            </div>
+            <div className="create-account">
+                <p>Don't have an account?</p>
+                <a href="/create_account">Create One!</a>
             </div>
         </div>
     )

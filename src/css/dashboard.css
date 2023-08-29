@@ -1,0 +1,42 @@
+header {
+    background-image: url("../assets/placeholder-banner.png");
+    background-size: cover;
+}
+
+header div {
+    transform: translateY(200px);
+}
+
+header div img {
+    border-radius: 50%;
+    border: 7px solid white;
+}
+
+.dashboard {
+    margin-top: 300px;
+}
+
+.dashboard button {
+    background-color: rgb(230, 230, 230);
+    border: solid transparent 1px;
+    border-radius: 1em;
+    transition: 0.3s ease-in-out;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.dashboard button:hover {
+    background-color: white;
+    border: solid black 1px;
+}
+
+.dashboard button:active {
+    transform: scale(0.95);
+}
+
+.dashboard button p {
+    font-weight: bold;
+    font-size: large;
+}
