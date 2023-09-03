@@ -1,42 +1,60 @@
-header {
-    background-image: url("../assets/placeholder-banner.png");
+.dashboard-header {
+    display: flex;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 50px;
+    padding: 20px;
     background-size: cover;
-}
-
-header div {
-    transform: translateY(200px);
-}
-
-header div img {
-    border-radius: 50%;
-    border: 7px solid white;
-}
-
-.dashboard {
-    margin-top: 300px;
-}
-
-.dashboard button {
-    background-color: rgb(230, 230, 230);
-    border: solid transparent 1px;
+    background-repeat: no-repeat;
     border-radius: 1em;
-    transition: 0.3s ease-in-out;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-bottom: 10px;
-    padding: 5px;
 }
 
-.dashboard button:hover {
+.dashboard-header img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: solid white 1px;
+}
+
+.dashboard-header h1 {
+    margin-left: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.dashboard-section {
+    text-align: left;
+    margin: 50px;
+}
+
+.dashboard-section h1 {
+    font-size: xx-large;
+}
+
+.dashboard-section-items {
+    display: flex;
+}
+
+.dashboard-section-items img {
+    width: 150px;
+    height: 150px;
+    -webkit-user-drag: none;
+}
+
+.dashboard-section-items div {
+    background-color: #D9D9D9;
+    border-radius: 17px;
+    text-align: center;
+    margin: 20px;
+    padding: 20px;
+    width: 200px;
+    border: solid #D9D9D9 1px;
+    user-select: none;
+    transition: 0.3s ease-in-out;
+}
+
+.dashboard-section-items div:hover {
     background-color: white;
     border: solid black 1px;
-}
-
-.dashboard button:active {
-    transform: scale(0.95);
-}
-
-.dashboard button p {
-    font-weight: bold;
-    font-size: large;
+    cursor: pointer;
 }

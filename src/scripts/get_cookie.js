@@ -1,4 +1,4 @@
-export function get_username() {
+export async function get_username() {
     const cookieName = "LIF_USERNAME";
 
     // Split the cookies string into individual cookies
