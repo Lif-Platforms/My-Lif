@@ -20,8 +20,8 @@
 }
 
 .sidebar {
-    height: 98%;
-    padding: 10px 10px 10px 0px;
+    height: 99%;
+    padding: 10px 25px 0px 0px;
     width: max-content;
     background-color: #EFEFEF;
     border-radius: 0px 20px 20px 0px;
@@ -34,22 +34,27 @@
     margin-top: 10px;
     border-radius: 0px 50px 50px 0px;
     font-size: large;
-    background-color: rgb(226, 226, 226);
-    border: transparent solid 1px;
+    background-color: transparent;
     transition: 0.3s ease-in-out;
-    padding: 5px 5px 5px 20px;
+    padding: 10px 10px 10px 20px;
     margin-left: 0;
+    border: none;
 }
 
 .sidebar-buttons button:hover {
-    background-color: white;
-    border: 1px solid black;
+    background-color: rgb(221, 220, 220);
 }
 
 /* Used when current option in sidebar is selected */
-.active {
+.sidebar .active {
     border-radius: 0px 50px 50px 0px;
     width: 100%;
+    background-color: white;
+    border: none;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.sidebar .active:hover {
     background-color: white;
     border: none;
 }
@@ -59,7 +64,15 @@
     overflow-y: auto;
 }
 
-.personalization-options {
+.settings h1 {
+    font-weight: normal;
+}
+
+.page-title {
+    font-size: 50px;
+}
+
+.options {
     border: 1px solid black;
     border-radius: 26px;
     padding: 10px;
@@ -67,13 +80,13 @@
     display: block;
 }
 
-.personalization-options div {
+.options div {
     display: flex;
     justify-content: space-between; /* Align items to left and right edges */
     margin: auto;
 }
 
-.personalization-options button {
+.options button {
     height: min-content;
     margin-top: auto;
     margin-bottom: auto;
@@ -86,11 +99,45 @@
     transition: 0.2s ease-in-out;
 }
 
-.personalization-options button:hover {
+.options button:hover {
     background-color: white;
     border: 1px solid black;
 }
 
-.personalization-options button:active {
+.options button:active {
     transform: scale(0.95);
+}
+
+.options textarea {
+    border-radius: 11px;
+    resize: none;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 300px;
+    height: 100px;
+    border: none;
+    background-color: #D9D9D9;
+}
+
+.options select {
+    height: max-content;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.options input {
+    height: max-content;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #D9D9D9;
+}
+
+.options .small-button {
+    padding: 5px 15px 5px 15px;
+    font-size: small;
 }

@@ -42,13 +42,13 @@
 }
 
 .dashboard-section-items div {
-    background-color: #D9D9D9;
+    background-color: #ebebeb;
     border-radius: 17px;
     text-align: center;
     margin: 20px;
     padding: 20px;
     width: 200px;
-    border: solid #D9D9D9 1px;
+    border: solid #ebebeb 1px;
     user-select: none;
     transition: 0.3s ease-in-out;
 }
