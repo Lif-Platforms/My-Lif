@@ -107,3 +107,32 @@
     font-family: Arial, Helvetica, sans-serif;
     border: 1px solid black;
 }
+
+.account-status {
+    color: red;
+    display: block;
+    margin-top: 20px;
+}
+
+.enter-email button {
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: larger;
+    margin-top: 20px;
+    border-radius: 0.5em;
+    border: none;
+    background: rgb(14, 219, 143);
+    background: linear-gradient(90deg, rgba(14, 219, 143, 1) 0%, rgba(0, 212, 255, 1) 100%);
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.enter-email button:hover {
+    opacity: 0.5;
+}
+
+.enter-email button:active {
+    transform: scale(0.90);
+}
