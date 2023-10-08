@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "../css/create account.css";
 import LifLogo from "../assets/Lif_Logo.png";
 
@@ -91,6 +92,80 @@ function CreateAccount() {
         setAccountState("select_username");
     }
 
+    function handle_password_add() {
+        // Get both passwords from user input
+        const password_1 = document.getElementById("password").value; 
+        const password_2 = document.getElementById("confirm-password").value; 
+
+        // Update submit button
+        document.getElementById("submit-button").innerHTML = "Loading...";
+
+        // Check if the passwords match
+        if (password_1 === password_2) {
+            // Create a clone of the 'accountData' useState and update its info
+            const updatedAccountData = { ...accountData };
+            updatedAccountData["password"] = password_1;
+
+            // Save account info for later
+            setAccountData(updatedAccountData);
+
+            // Update submit button
+            document.getElementById("submit-button").innerHTML = "Create Account";
+
+            // Update account status
+            document.getElementById('account-status').innerHTML = "";
+
+            setAccountState('create_account');
+
+        } else {
+            // Update account status
+            document.getElementById('account-status').innerHTML = "Passwords Don't Match!";
+
+            // Update submit button
+            document.getElementById("submit-button").innerHTML = "Next";
+        }
+    }
+
+    function create_account() {
+        // Update submit button
+        document.getElementById("submit-button").innerHTML = "Creating...";
+
+        fetch(`${process.env.REACT_APP_AUTH_URL}/create_lif_account`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(accountData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+
+            if (data.Status === "Ok") {
+                // Update submit button
+                document.getElementById("submit-button").innerHTML = "Done";
+
+                // Update account status
+                document.getElementById('account-status').innerHTML = "";
+                
+                setUnsavedChanges(false);
+                setAccountState('account_created');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+
+            // Update submit button
+            document.getElementById("submit-button").innerHTML = "Create Account";
+
+            // Update account status
+            document.getElementById('account-status').innerHTML = error.detail;
+        });
+    }
+
+    // Create navigation instance
+    const navigate = useNavigate()
+
     if (accountState === "welcome") {
         return ( 
             <div className="create-account-page">
@@ -128,7 +203,49 @@ function CreateAccount() {
                         <p>Your email is crucial to your Lif account. It allows us to send you import emails, such as account recovery emails.</p>
                         <input id="email" placeholder="Email" />
                         <br />
-                        <button id="submit-button" onClick={() => handle_navigate("email", "email", "add_email")}>Next</button>
+                        <button id="submit-button" onClick={() => handle_navigate("email", "email", "add_password")}>Next</button>
+                        <span id="account-status" className="account-status" />
+                    </div>
+                </div>
+            </div>
+        );
+    } else if (accountState === "add_password") {
+        return(
+            <div className="create-account-page">
+                <div className="content-container">
+                    <div className="enter-password">
+                        <h1>Choose a Password</h1>
+                        <p>Your password is how you will log into your Lif Account. Choose one you will remember.</p>
+                        <input type="password" placeholder="Password" id="password" />
+                        <input type="password" placeholder="Confirm Password" id="confirm-password" />
+                        <button id="submit-button" onClick={() => handle_password_add()}>Next</button>
+                        <span id="account-status" className="account-status" />
+                    </div>
+                </div>
+            </div>
+        );
+    } else if (accountState === "create_account") {
+        return(
+            <div className="create-account-page">
+                <div className="content-container">
+                    <div className="new-account">
+                        <h1>Your Account is Ready!</h1>
+                        <p>Press the "Create Account" button to jump into your social.</p>
+                        <button id="submit-button" onClick={() => create_account()}>Create Account</button>
+                        <span id="account-status" className="account-status" />
+                    </div>
+                    <span className="disclaimer">By clicking "Create Account" you agree to be bound by the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</span>
+                </div>
+            </div>
+        );
+    } else if (accountState === "account_created") {
+        return(
+            <div className="create-account-page">
+                <div className="content-container">
+                    <div className="new-account">
+                        <h1>Your In!</h1>
+                        <p>You are now ready to dive into the social world with your Lif Account.</p>
+                        <button id="submit-button" onClick={() => navigate("/")}>Done</button>
                         <span id="account-status" className="account-status" />
                     </div>
                 </div>
