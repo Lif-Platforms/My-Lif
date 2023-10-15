@@ -1,6 +1,7 @@
 import { get_username } from "../scripts/get_cookie";
 import "../css/dashboard.css";
 import { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 // Asset Import
 import Avatar from "../assets/dashboard/avatar.svg";
@@ -29,25 +30,25 @@ function Header() {
 }
 
 function Personalization() {
+    const navigateTo = useNavigate();
 
-    function navigate() {
-        // Replace with navigation logic
-        console.log("This is a click!");
+    function navigate(page) {
+        navigateTo(`/settings/${page}`);
     }
 
     return(
         <section className="dashboard-section">
             <h1>Personalization</h1>
             <div className="dashboard-section-items">
-                <div onClick={navigate}>
+                <div onClick={() => navigate("personalization")}>
                     <img src={Avatar} alt="Personalization" />
                     <h1>Profile Pic</h1>
                 </div>
-                <div onClick={navigate}>
+                <div onClick={() => navigate("personalization")}>
                     <img src={Banner} alt="Personalization" />
                     <h1>Banner</h1>
                 </div>
-                <div onClick={navigate}>
+                <div onClick={() => navigate("personalization")}>
                     <img src={Bio} alt="Personalization" />
                     <h1>Bio</h1>
                 </div>
@@ -57,18 +58,18 @@ function Personalization() {
 }
 
 function Security() {
+    const navigateTo = useNavigate();
 
-    function navigate() {
-        // Replace with navigation logic
-        console.log("This is a click!");
+    function navigate(page) {
+        navigateTo(`/settings/${page}`);
     }
 
     return(
         <section className="dashboard-section">
             <h1>Security</h1>
             <div className="dashboard-section-items">
-                <div onClick={navigate}>
-                    <img src={Security_Icon} alt="Personalization" />
+                <div onClick={() => navigate("security")}>
+                    <img src={Security_Icon} alt="Security" />
                     <h1>Login Info</h1>
                 </div>
             </div>

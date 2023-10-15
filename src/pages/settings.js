@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
-import { get_username } from "../scripts/get_cookie";
+import { useState, useEffect, useRef } from "react";
+import { useParams, useNavigate } from 'react-router-dom';
+import { get_username, get_token } from "../scripts/get_cookie";
 import "../css/settings.css";
 
 function SideBar({ setState, page }) {
     const [username, setUsername] = useState(null);
+    const pageNavigate = useNavigate();
 
     useEffect(() => {
         async function fetchData() {
@@ -42,6 +44,8 @@ function SideBar({ setState, page }) {
         document.getElementById(to_page).classList.add("active");
     
         setState(to_page);
+
+        pageNavigate(`/settings/${to_page}`);
     }
 
     return (
@@ -60,6 +64,168 @@ function SideBar({ setState, page }) {
 }
 
 function SettingsPage({ state }) {
+    const avatarInputRef = useRef(null);
+    const bannerInputRef = useRef(null);
+
+    async function handleAvatarUpload() {
+        // Grab user avatar
+        const file = avatarInputRef.current.files[0];
+
+        // Grab client auth info
+        const username = await get_username();
+        const token = await get_token();
+        
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('username', username);
+        formData.append('token', token);
+
+        fetch(`${process.env.REACT_APP_AUTH_URL}/update_pfp`, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+            console.log('File uploaded successfully.');
+            } else {
+            console.error('An error occurred!');
+            }
+        })
+        .catch(error => {
+            console.error('An error occurred!', error);
+        });
+    }
+
+    async function handleBannerUpload() {
+        // Grab user banner
+        const file = bannerInputRef.current.files[0];
+
+        // Grab client auth info
+        const username = await get_username();
+        const token = await get_token();
+        
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('username', username);
+        formData.append('token', token);
+
+        fetch(`${process.env.REACT_APP_AUTH_URL}/update_profile_banner`, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+            console.log('File uploaded successfully.');
+            } else {
+            console.error('An error occurred!');
+            }
+        })
+        .catch(error => {
+            console.error('An error occurred!', error);
+        });
+    }
+
+    async function handle_personalization_update() {
+        // Update save button
+        const save_button = document.getElementById('Personalization-update');
+        save_button.innerHTML = "Saving...";
+
+        // Get client auth info
+        const username = await get_username();
+        const token = await get_token();
+
+        // Get info to update
+        const bio =  document.getElementById('user_bio').value; 
+        const pronouns =  document.getElementById('user_pronouns').value; 
+
+        // Format data for request
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('token', token);
+        formData.append('bio', bio);
+        formData.append('pronouns', pronouns);
+
+        // Make request to auth server
+        fetch(`${process.env.REACT_APP_AUTH_URL}/update_account_info/personalization`, {
+            method: "POST",
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log("Data Updated!");
+                save_button.innerHTML = "Saved!";
+            } else {
+                console.log(response);
+            }
+        })
+    }
+
+    // Update user bio upon page load
+    useEffect(() => {
+        async function get_bio() {
+            const user_bio = document.getElementById('user_bio');
+            const username = await get_username();
+
+            fetch(`${process.env.REACT_APP_AUTH_URL}/get_user_bio/${username}`)
+            .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.text(); // Read the response body as text
+            })
+            .then(data => {
+                // Data is the response body as text
+                console.log(data);
+
+                // Use the replace method to remove the quotes
+                const insert_data = data.replace(/^"(.*)"$/, '$1');
+
+                // Update user bio input
+                user_bio.value = insert_data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        if (state === "personalization") {
+            get_bio();
+        }
+    }, [state])
+
+    // Update user pronouns upon page load
+    useEffect(() => {
+        async function get_pronouns() {
+            const user_pronouns = document.getElementById('user_pronouns');
+            const username = await get_username();
+
+            fetch(`${process.env.REACT_APP_AUTH_URL}/get_user_pronouns/${username}`)
+            .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.text(); // Read the response body as text
+            })
+            .then(data => {
+                // Data is the response body as text
+                console.log(data);
+
+                // Use the replace method to remove the quotes
+                const insert_data = data.replace(/^"(.*)"$/, '$1');
+
+                // Update user bio input
+                user_pronouns.value = insert_data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        if (state === "personalization") {
+            get_pronouns();
+        }
+    }, [state])
+
     if (state === "personalization") {
         return(
             <div className="settings">
@@ -68,31 +234,33 @@ function SettingsPage({ state }) {
                 <div className="options">
                     <div>
                         <h1>Profile Photo</h1>
-                        <button>Choose</button>
+                        <input id="avatarInput" type="file" style={{ display: 'none' }} ref={avatarInputRef} onChange={() => handleAvatarUpload()} />
+                        <button onClick={() => avatarInputRef.current.click()}>Choose</button>
                     </div>
                     <hr />
                     <div>
                         <h1>Profile Banner</h1>
-                        <button>Choose</button>
+                        <input id="bannerInput" type="file" style={{ display: 'none' }} ref={bannerInputRef} onChange={() => handleBannerUpload()} />
+                        <button onClick={() => bannerInputRef.current.click()}>Choose</button>
                     </div>
                 </div>
                 <h1>Bio/Info</h1>
                 <div className="options">
                     <div>
                         <h1>Bio</h1>
-                        <textarea placeholder="Tell us about yourself..." />
+                        <textarea placeholder="Tell us about yourself..." id="user_bio" />
                     </div>
                     <hr />
                     <div>
                         <h1>Pronouns</h1>
-                        <select>
+                        <select id="user_pronouns">
                             <option value="none">Other</option>
                             <option value="he/him">he/him</option>
                             <option value="she/her">she/her</option>
                             <option value="they/them">they/them</option>
                         </select>
                     </div>
-                    <button className="small-button">Save</button>
+                    <button className="small-button" onClick={() => handle_personalization_update()} id="Personalization-update">Save</button>
                 </div>
             </div>
         )
@@ -119,6 +287,14 @@ function SettingsPage({ state }) {
 
 function Settings() {
     const [pageState, setPageState] = useState('personalization');
+
+    // Grab the section from the url
+    const { section } = useParams();
+
+    // Set the section based on the "section" variable in page url
+    useEffect(() => {
+        setPageState(section);
+    }, [section]);
 
     return(
         <div className="settings-page">

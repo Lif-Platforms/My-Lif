@@ -18,7 +18,7 @@ export async function get_username() {
     return null;
 }
 
-export function get_token() {
+export async function get_token() {
     const cookieName = "LIF_TOKEN";
 
     // Split the cookies string into individual cookies
