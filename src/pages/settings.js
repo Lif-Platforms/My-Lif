@@ -226,6 +226,41 @@ function SettingsPage({ state }) {
         }
     }, [state])
 
+    async function handle_password_update() {
+        // Get client auth info
+        const username = await get_username();
+
+        // Update status button
+        const status_button = document.getElementById('password-update');
+        status_button.innerHTML = "Updating...";
+
+        // Get password data
+        const old_password = document.getElementById('old-password-input').value;
+        const new_password = document.getElementById('new-password-input').value;
+
+        // Prepare data for server request
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('current_password', old_password);
+        formData.append('new_password', new_password);
+
+        // Make server request
+        fetch(`${process.env.REACT_APP_AUTH_URL}/lif_password_update`, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                status_button.innerHTML = "Updated!";
+            } else {
+                throw new Error(response.text());
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
+
     if (state === "personalization") {
         return(
             <div className="settings">
@@ -272,13 +307,13 @@ function SettingsPage({ state }) {
                 <div className="options">
                     <div>
                         <h1>Current Password</h1>
-                        <input placeholder="Password..." type="password" />
+                        <input placeholder="Password" type="password" id="old-password-input" />
                     </div>
                     <div>
                         <h1>New Password</h1>
-                        <input placeholder="Password..." type="password" />
+                        <input placeholder="Password" type="password" id="new-password-input" />
                     </div>
-                    <button className="small-button">Update</button>
+                    <button className="small-button" onClick={() => handle_password_update()} id="password-update">Update</button>
                 </div>
             </div>
         )
