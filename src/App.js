@@ -5,7 +5,7 @@ import Login from './pages/login';
 import Home from './pages/home';
 import Settings from './pages/settings';
 import CreateAccount from './pages/create account';
-
+import ForgetPassword from './pages/forget password';
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path='/settings/:section' element={<Settings />} />
         <Route path='/create_account' element={<CreateAccount />} />
+        <Route path='/account_recovery' element={<ForgetPassword />} />
       </Routes>
   );
 }

@@ -63,7 +63,7 @@ function Login() {
                 </form>
                 <br />
                 <span id="login_status" className="login-status"></span>
-                <a href="#">Forgot Password</a>
+                <a href="/account_recovery">Forgot Password</a>
             </div>
             <div className="create-account">
                 <p>Don't have an account?</p>
