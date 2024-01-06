@@ -8,6 +8,8 @@
 
 .account-recovery-container {
     background-color: white;
+    position: relative;
+    overflow: hidden;
     width: 400px;
     height: 500px;
     border-radius: 0.5em;
@@ -63,7 +65,7 @@
 .code-entry-form input {
     margin: 0 5px 0 5px;
     height: 20px;
-    width: 20px;
+    width: 150px;
     padding: 5px;
     font-family: Inter;
     border-radius: 0.5em;
@@ -86,4 +88,43 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.status-text {
+    color: red;
+    text-align: center;
+    display: block;
+    margin-top: 20px;
+}
+
+@keyframes loader_animation {
+    0% {
+        width: 0%;
+        left: 0%;
+    }
+    50% {
+        width: 100%;
+        left: 0%;
+    }
+    100% {
+        width: 0;
+        left: 100%;
+    }
+}
+
+.loader {
+    display: none;
+}
+
+.loader-active {
+    display: initial;
+    top: 0;
+    left: 0;
+    height: 5px;
+    background-color: blue;
+    width: 100%;
+    position: absolute;
+    animation: loader_animation 1s linear infinite;
+    animation-timing-function: ease-in-out;
+    border-radius: 5px;
 }
