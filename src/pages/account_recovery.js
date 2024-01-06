@@ -1,20 +1,27 @@
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 // Define the WebSocket connection here
-const socket = new WebSocket(`${process.env.REACT_APP_AUTH_WS}/lif_account_recovery`);
+const socket = new WebSocket(
+    `${process.env.REACT_APP_AUTH_WS}/lif_account_recovery`
+);
 
 // If page is not account recovery then close connection
 if (window.location.pathname !== "/account_recovery") {
-    socket.close();
+    delete socket.close();
 }
 
-// Listen for connection close event
-window.addEventListener('closeConnection', () => {
-    if(socket) {
-        console.log(`closing websocket connection`);
+// Create a reference to the event listener function
+const closeConnection = () => {
+    if (socket) {
         socket.close();
-    }
-});
+
+        // Remove the event listener after socket close
+        window.removeEventListener('closeConnection', closeConnection);
+    };
+};
+
+// Listen for 'closeConnection' event
+window.addEventListener('closeConnection', closeConnection);
 
 // Handle websocket open
 socket.onopen = (event) => {
@@ -68,7 +75,6 @@ export const connect = {
             socket.send(JSON.stringify({ email: email }));
         });
     },
-
     send_code(code) {
         return new Promise((resolve, reject) => {
             // Handle incoming messages
@@ -101,7 +107,6 @@ export const connect = {
             socket.send(JSON.stringify({ code: code }));
         });
     },
-
     send_password(password) {
         return new Promise((resolve, reject) => {
             // Handle incoming messages

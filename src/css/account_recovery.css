@@ -13,7 +13,7 @@
     width: 400px;
     height: 500px;
     border-radius: 0.5em;
-    box-shadow: 0px 13px 25px 12px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 13px 25px 12px rgb(0 0 0 / 25%);
     padding: 10px;
 }
 
@@ -36,7 +36,7 @@
     border-radius: 0.5em;
     font-family: Inter;
     border: none;
-    padding: 10px 20px 10px 20px;
+    padding: 10px 20px;
     display: block;
     margin: auto;
     transition: 0.3s ease;
@@ -48,7 +48,10 @@
 
 .email-entry {
     display: block;
-    margin: auto auto 20px auto;
+    margin-top: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    margin-left: auto;
     padding: 10px;
     font-family: Inter;
     border-radius: 0.5em;
@@ -63,7 +66,7 @@
 }
 
 .code-entry-form input {
-    margin: 0 5px 0 5px;
+    margin: 0 5px;
     height: 20px;
     width: 150px;
     padding: 5px;
@@ -75,7 +78,7 @@
 
 .password-entry {
     display: block;
-    margin: 0 auto 20px auto;
+    margin: 0 auto 20px;
     padding: 10px;
     font-family: Inter;
     border-radius: 0.5em;
@@ -97,15 +100,17 @@
     margin-top: 20px;
 }
 
-@keyframes loader_animation {
+@keyframes loader-animation {
     0% {
         width: 0%;
         left: 0%;
     }
+
     50% {
         width: 100%;
         left: 0%;
     }
+    
     100% {
         width: 0;
         left: 100%;
@@ -124,7 +129,7 @@
     background-color: blue;
     width: 100%;
     position: absolute;
-    animation: loader_animation 1s linear infinite;
+    animation: loader-animation 1s linear infinite;
     animation-timing-function: ease-in-out;
     border-radius: 5px;
 }
