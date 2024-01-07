@@ -48,10 +48,7 @@
 
 .email-entry {
     display: block;
-    margin-top: auto;
-    margin-right: auto;
-    margin-bottom: 20px;
-    margin-left: auto;
+    margin: auto 20px 20px;
     padding: 10px;
     font-family: Inter;
     border-radius: 0.5em;

@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 
 // Define the WebSocket connection here
 const socket = new WebSocket(
-    `${process.env.REACT_APP_AUTH_WS}/lif_account_recovery`
+    `${process.env.REACT_APP_AUTH_WS}/lif_account_recovery`,
 );
 
 // If page is not account recovery then close connection
@@ -16,28 +16,28 @@ const closeConnection = () => {
         socket.close();
 
         // Remove the event listener after socket close
-        window.removeEventListener('closeConnection', closeConnection);
+        window.removeEventListener("closeConnection", closeConnection);
     };
 };
 
 // Listen for 'closeConnection' event
-window.addEventListener('closeConnection', closeConnection);
+window.addEventListener("closeConnection", closeConnection);
 
 // Handle websocket open
 socket.onopen = (event) => {
-    console.log('WebSocket connection opened:', event);
+    console.log("WebSocket connection opened:", event);
 
     // Emit a custom event when the connection is established
-    const connectionEvent = new CustomEvent('connectionEstablished');
+    const connectionEvent = new CustomEvent("connectionEstablished");
     window.dispatchEvent(connectionEvent);
 };
 
 // Handle socket errors
 socket.onerror = (error) => {
-    console.error('WebSocket connection error:', error);
+    console.error("WebSocket connection error:", error);
 
     // Emit a custom event when the connection fails
-    const connectionEvent = new CustomEvent('connectionFailed');
+    const connectionEvent = new CustomEvent("connectionFailed");
     window.dispatchEvent(connectionEvent);
 };
 
@@ -53,21 +53,21 @@ export const connect = {
 
                 if (response && response.responseType === "emailSent") {
                     console.log("Email sent:", response);
-                    resolve('OK');
+                    resolve("OK");
                 } else {
                     console.error("Unexpected response:", response);
 
-                    if (response && response.message === 'Invalid Email!') {
-                        resolve('BAD_EMAIL');
+                    if (response && response.message === "Invalid Email!") {
+                        resolve("BAD_EMAIL");
                     } else {
-                        resolve('ERROR');
+                        resolve("ERROR");
                     }
                 }
             };
 
             // Handle socket errors
             socket.onerror = (error) => {
-                console.error('WebSocket connection error:', error);
+                console.error("WebSocket connection error:", error);
                 reject(error); // Reject the Promise in case of an error
             };
 
@@ -119,8 +119,8 @@ export const connect = {
                     console.log("Code sent:", response);
 
                     // Set login cookies
-                    Cookies.set("LIF_USERNAME", response.username, {path: '/'});
-                    Cookies.set("LIF_TOKEN", response.token, {path: '/'});
+                    Cookies.set("LIF_USERNAME", response.username, {path: "/"});
+                    Cookies.set("LIF_TOKEN", response.token, {path: "/"});
 
                     resolve('OK');
                 } else {
@@ -132,7 +132,7 @@ export const connect = {
 
             // Handle socket errors
             socket.onerror = (error) => {
-                console.error('WebSocket connection error:', error);
+                console.error("WebSocket connection error:", error);
                 reject(error); // Reject the Promise in case of an error
             };
 
