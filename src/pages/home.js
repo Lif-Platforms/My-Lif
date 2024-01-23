@@ -2,6 +2,7 @@ import { get_username } from "../scripts/get_cookie";
 import "../css/dashboard.css";
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 // Asset Import
 import Avatar from "../assets/dashboard/avatar.svg";
@@ -93,6 +94,21 @@ function Home() {
         }
         set_banner()
     }, []);
+
+    // Create navigation instance
+    const navigate = useNavigate();
+
+    // Check if user is logged in
+    useEffect(() => {
+        // Get auth cookies
+        const username = Cookies.get("LIF_USERNAME");
+        const token = Cookies.get("LIF_TOKEN");
+
+        // Check if cookies exist and redirect to login if necessary
+        if (!username && !token) {
+            navigate("/login");
+        }
+    }, [])
 
     return (
         <div className="App">

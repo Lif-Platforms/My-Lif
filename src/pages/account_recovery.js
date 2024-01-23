@@ -10,19 +10,6 @@ if (window.location.pathname !== "/account_recovery") {
     delete socket.close();
 }
 
-// Create a reference to the event listener function
-const closeConnection = () => {
-    if (socket) {
-        socket.close();
-
-        // Remove the event listener after socket close
-        window.removeEventListener("closeConnection", closeConnection);
-    };
-};
-
-// Listen for 'closeConnection' event
-window.addEventListener("closeConnection", closeConnection);
-
 // Handle websocket open
 socket.onopen = (event) => {
     console.log("WebSocket connection opened:", event);

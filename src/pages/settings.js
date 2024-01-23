@@ -174,9 +174,6 @@ function SettingsPage({ state }) {
                 return response.text(); // Read the response body as text
             })
             .then(data => {
-                // Data is the response body as text
-                console.log(data);
-
                 // Use the replace method to remove the quotes
                 const insert_data = data.replace(/^"(.*)"$/, '$1');
 
@@ -207,9 +204,6 @@ function SettingsPage({ state }) {
                 return response.text(); // Read the response body as text
             })
             .then(data => {
-                // Data is the response body as text
-                console.log(data);
-
                 // Use the replace method to remove the quotes
                 const insert_data = data.replace(/^"(.*)"$/, '$1');
 

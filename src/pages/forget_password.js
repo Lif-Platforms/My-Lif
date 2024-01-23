@@ -56,12 +56,6 @@ function UserForm() {
 
             setPage("error");
         });
-
-        // Close connection when component unmounts
-        return () => {
-            const closeEvent = new CustomEvent("closeConnection");
-            window.dispatchEvent(closeEvent);
-        }
     }, []);
 
     async function handle_email_send() {
