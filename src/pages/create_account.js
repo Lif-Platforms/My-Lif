@@ -234,7 +234,7 @@ function CreateAccount() {
                         <button id="submit-button" onClick={() => create_account()}>Create Account</button>
                         <span id="account-status" className="account-status" />
                     </div>
-                    <span className="disclaimer">By clicking "Create Account" you agree to be bound by the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</span>
+                    <span className="disclaimer">By clicking "Create Account" you agree to be bound by the <a href="https://lifplatforms.com/terms%20of%20service.html" target="_blank">Terms of Service</a> and <a href="https://lifplatforms.com/privacy%20policy.html" target="_blank">Privacy Policy</a>.</span>
                 </div>
             </div>
         );
