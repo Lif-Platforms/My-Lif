@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 // eslint-disable-next-line
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/login"; 
 import Home from "./pages/home";
 import Settings from "./pages/settings";
@@ -17,7 +17,7 @@ function App() {
   const forget_password_element = <ForgetPassword />
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={home_element} />
         <Route path="/login" element={login_element} />
@@ -25,7 +25,7 @@ function App() {
         <Route path="/create_account" element={create_account_element} />
         <Route path="/account_recovery" element={forget_password_element} />
       </Routes>
-    </BrowserRouter>  
+    </HashRouter>  
   );
 }
 

@@ -1,6 +1,6 @@
 import Logo from "../assets/Lif_Logo.png"
 import '../css/login.css';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
     const navigate = useNavigate(); 
@@ -63,11 +63,11 @@ function Login() {
                 </form>
                 <br />
                 <span id="login_status" className="login-status"></span>
-                <a href="/account_recovery">Forgot Password</a>
+                <Link to="/account_recovery">Forgot Password</Link>
             </div>
             <div className="create-account">
                 <p>Don't have an account?</p>
-                <a href="/create_account">Create One!</a>
+                <Link to="/create_account">Create One!</Link>
             </div>
         </div>
     )

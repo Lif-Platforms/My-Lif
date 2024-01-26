@@ -5,8 +5,12 @@ const socket = new WebSocket(
     `${process.env.REACT_APP_AUTH_WS}/lif_account_recovery`,
 );
 
+// Get current window location
+const currentUrl = window.location.href;
+const hashValue = currentUrl.split('#')[1];
+
 // If page is not account recovery then close connection
-if (window.location.pathname !== "/account_recovery") {
+if (hashValue !== "/account_recovery") {
     delete socket.close();
 }
 
