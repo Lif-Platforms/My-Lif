@@ -20,7 +20,7 @@ function Login() {
         const password = password_input.value; 
 
         // Logs in the user with the lif auth server
-        fetch(`http://localhost:8002/login/${username}/${password}`)
+        fetch(`${process.env.REACT_APP_AUTH_URL}/login/${username}/${password}`)
         .then(response => {
             if (response.ok) {
             return response.json(); // Convert response to JSON

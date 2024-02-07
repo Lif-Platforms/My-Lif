@@ -51,7 +51,7 @@ function SideBar({ setState, page }) {
     return (
     <div className="sidebar">
         <div className="sidebar-header">
-            <img src={`http://localhost:8002/get_pfp/${username}.png`} alt={`Profile picture of ${username}`} />
+            <img src={`${process.env.REACT_APP_AUTH_URL}/get_pfp/${username}.png`} alt={`Profile picture of ${username}`} />
             <h1>{username}</h1>
         </div>
         <hr />

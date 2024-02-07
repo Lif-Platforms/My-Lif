@@ -16,7 +16,11 @@ function Header() {
     useEffect(() => {
         async function set_avatar() {
             const username = await get_username();
-            document.getElementById('user-avatar').src = `${process.env.REACT_APP_AUTH_URL}/get_pfp/${username}.png`;
+
+            // Generate random dummy number to prevent caching
+            const number = Math.floor(Math.random() * 9000000000) + 1000000000;
+
+            document.getElementById('user-avatar').src = `${process.env.REACT_APP_AUTH_URL}/get_pfp/${username}.png?dummy=${number}`;
         }
         set_avatar()
     }, [])
@@ -84,7 +88,10 @@ function Home() {
         async function set_banner() {
             const username = await get_username();
 
-            const url = `${process.env.REACT_APP_AUTH_URL}/get_banner/${username}.png`;
+            // Generate random dummy number to prevent caching
+            const number = Math.floor(Math.random() * 9000000000) + 1000000000;
+
+            const url = `${process.env.REACT_APP_AUTH_URL}/get_banner/${username}.png?dummy=${number}`;
             const accountHeader = document.getElementById("user-banner");
 
             document.getElementById("user-name").innerHTML = username;
