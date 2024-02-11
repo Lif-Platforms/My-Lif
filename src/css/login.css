@@ -14,7 +14,7 @@ body, html {
     flex-direction: column;
     align-items: center; /* Add this line to vertically center the content */
     background: rgb(14, 219, 143);
-    background: linear-gradient(0deg, rgba(14, 219, 143, 1) 0%, rgba(0, 212, 255, 1) 100%);
+    background: linear-gradient(180deg, #79E7AD 0%, #FFF 100%);
     height: 100%;
     width: 100%;
 }
@@ -23,41 +23,33 @@ body, html {
     width: 200px;
 }
 
-.LoginForm {
+.login-container {
     display: block;
     text-align: center;
-    border: 1px solid gray;
+    box-shadow: 0 0 20px gray;
     height: fit-content;
     padding: 50px;
     border-radius: 1em;
     background-color: white;
-    width: 250px;
+    width: 300px;
+    overflow: hidden;
+    position: relative;
 }
 
-.LoginForm input {
+.login-container input {
     padding: 10px;
     font-size: larger;
     border-radius: 0.5em;
-    border: solid gray 1px;
+    border-bottom: 1px solid rgb(0, 153, 255);
+    border-top: none;
+    border-right: none;
+    border-left: none;
     margin-top: 20px;
+    width: 300px;
+    background-color: #ebeaea;
 }
 
-.LoginForm button {
-    padding: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    font-size: larger;
-    margin-top: 20px;
-    border-radius: 0.5em;
-    border: none;
-    background: rgb(14, 219, 143);
-    background: linear-gradient(90deg, rgba(14, 219, 143, 1) 0%, rgba(0, 212, 255, 1) 100%);
-    color: white;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.LoginForm button:hover {
+.login-container button {
     padding: 10px;
     padding-left: 20px;
     padding-right: 20px;
@@ -69,27 +61,15 @@ body, html {
     background: linear-gradient(90deg, rgba(14, 219, 143, 1) 0%, rgba(0, 212, 255, 1) 100%);
     color: white;
     font-weight: bold;
+    transition: 0.3s ease-in-out;
+}
+
+.login-container button:hover {
     opacity: 0.5;
-    transition: 0.3s;
 }
 
-.LoginForm button:active {
-    padding: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    font-size: larger;
-    margin-top: 20px;
-    border-radius: 0.5em;
-    border: none;
-    background: rgb(14, 219, 143);
-    background: linear-gradient(90deg, rgba(14, 219, 143, 1) 0%, rgba(0, 212, 255, 1) 100%);
-    color: white;
-    font-weight: bold;
-    transform: scale(0.90);
-    transition: 0.2s;
-}
 
-.LoginForm a {
+.login-container a {
     color: rgb(0, 153, 255);
     text-decoration: solid underline rgb(0, 153, 255);
 }
@@ -103,9 +83,9 @@ body, html {
 .create-account {
     display: block;
     background-color: white;
-    border: 1px solid black;
     border-radius: 1em;
-    width: 250px;
+    width: 300px;
+    box-shadow: 0 0 20px gray;
     padding-left: 50px;
     padding-right: 50px;
     text-align: center;
@@ -113,7 +93,47 @@ body, html {
     margin-top: 15px;
 }
 
+.create-account p {
+    margin: auto;
+    padding-top: 15px;
+}
+
 .create-account a {
     color: rgb(0, 153, 255);
     text-decoration: solid underline rgb(0, 153, 255);
+
+}
+
+@keyframes loader-animation {
+    0% {
+        width: 0%;
+        left: 0%;
+    }
+
+    50% {
+        width: 100%;
+        left: 0%;
+    }
+    
+    100% {
+        width: 0;
+        left: 100%;
+    }
+}
+
+.loader {
+    display: none;
+}
+
+.loader-active {
+    display: initial;
+    top: 0;
+    left: 0;
+    height: 5px;
+    background-color: blue;
+    width: 100%;
+    position: absolute;
+    animation: loader-animation 1s linear infinite;
+    animation-timing-function: ease-in-out;
+    border-radius: 5px;
 }
