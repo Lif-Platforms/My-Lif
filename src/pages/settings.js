@@ -48,13 +48,19 @@ function SideBar({ setState, page }) {
         pageNavigate(`/settings/${to_page}`);
     }
 
+    function get_avatar_url() {
+        // Generate a random number for dummy parameter to prevent caching
+        const number = Math.floor(Math.random() * 9000000000) + 1000000000;
+
+        return `${process.env.REACT_APP_AUTH_URL}/get_pfp/${username}.png?dummy=${number}`;
+    }
+
     return (
     <div className="sidebar">
         <div className="sidebar-header">
-            <img src={`${process.env.REACT_APP_AUTH_URL}/get_pfp/${username}.png`} alt={`Profile picture of ${username}`} />
+            <img src={get_avatar_url()} alt={`Profile picture of ${username}`} className="user-avatar" />
             <h1>{username}</h1>
         </div>
-        <hr />
         <div className="sidebar-buttons" id="sidebar-buttons">
             <button id="personalization" className={page === 'personalization' ? 'active' : ''} onClick={() => navigate('personalization')}>Personalization</button>
             <button id="security" className={page === 'security' ? 'active' : ''} onClick={() => navigate('security')}>Security</button>
@@ -259,8 +265,10 @@ function SettingsPage({ state }) {
         return(
             <div className="settings">
                 <h1 className="page-title">Personalization</h1>
-                <h1>Avatar</h1>
                 <div className="options">
+                    <div className="options-header">
+                        <h1>Avatar</h1>
+                    </div>
                     <div>
                         <h1>Profile Photo</h1>
                         <input id="avatarInput" type="file" style={{ display: 'none' }} ref={avatarInputRef} onChange={() => handleAvatarUpload()} />
@@ -273,8 +281,10 @@ function SettingsPage({ state }) {
                         <button onClick={() => bannerInputRef.current.click()}>Choose</button>
                     </div>
                 </div>
-                <h1>Bio/Info</h1>
                 <div className="options">
+                    <div className="options-header">
+                        <h1>Bio/Info</h1>
+                    </div>
                     <div>
                         <h1>Bio</h1>
                         <textarea placeholder="Tell us about yourself..." id="user_bio" />
@@ -297,8 +307,10 @@ function SettingsPage({ state }) {
         return(
             <div className="settings">
                 <h1 className="page-title">Security</h1>
-                <h1>Password</h1>
                 <div className="options">
+                    <div className="options-header">
+                        <h1>Password</h1>
+                    </div>
                     <div>
                         <h1>Current Password</h1>
                         <input placeholder="Password" type="password" id="old-password-input" />
