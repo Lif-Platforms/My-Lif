@@ -12,6 +12,7 @@ function Login() {
     const passwordInput = useRef();
     const loginButton = useRef();
     const loginStatus = useRef();
+    const loginData = useRef();
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -36,38 +37,42 @@ function Login() {
     async function handle_login() {
         setIsLoading(true);
 
-        // Get username and password values
-        const username = usernameInput.current.value;
-        const password = passwordInput.current.value;
-
         // Logs in the user with the lif auth server
-        fetch(`${process.env.REACT_APP_AUTH_URL}/login/${username}/${password}`)
+        fetch(`${process.env.REACT_APP_AUTH_URL}/lif_login`, {
+            method: "POST",
+            body: new FormData(loginData.current)
+        })
         .then(response => {
-            if (response.ok) {
-            return response.json(); // Convert response to JSON
+            if (response.status === 200) {
+                return response.json(); // Convert response to JSON
             } else {
-            throw new Error('Request failed with status code: ' + response.status);
+                let exception = new Error('Request failed with status code: ' + response.status);
+                exception.status = response.status;
+                throw exception;
+
+
             }
         })
         .then(data => {
             // Work with the data
             console.log(data);
             
-            if (data.Status === "Successful") {
-                document.cookie = "LIF_TOKEN=" + data.Token;
-                document.cookie = "LIF_USERNAME=" + username;
+            document.cookie = "LIF_TOKEN=" + data.token;
+            document.cookie = "LIF_USERNAME=" + usernameInput.current.value;
 
-                navigate('/');
-            } else {
-                loginStatus.current.innerHTML = "Incorrect Username or Password";
-                setIsLoading(false);
-            }
+            navigate('/');
         })
         .catch(error => {
             // Handle any errors
             console.error(error);
             setIsLoading(false);
-            loginStatus.current.innerHTML = "Something Went Wrong!";
+
+            if (error.status === 401) {
+                loginStatus.current.innerHTML = "Incorrect Username or Password";
+
+            } else {
+                loginStatus.current.innerHTML = "Something Went Wrong!"; 
+            }    
         });
     }   
 
@@ -78,10 +83,10 @@ function Login() {
                 <div ref={loginForm}>
                     <img src={Logo} alt="Lif-Logo" />
                     <h1>Login With Lif</h1>
-                    <form>
-                        <input type="Username" ref={usernameInput} placeholder="Username" />
+                    <form ref={loginData}>
+                        <input type="Username" name="username" ref={usernameInput} placeholder="Username" />
                         <br />
-                        <input type="Password" ref={passwordInput} placeholder="Password"/>
+                        <input type="Password" name="password" ref={passwordInput} placeholder="Password"/>
                         <br />
                         <button type="button" ref={loginButton} onClick={handle_login}>Login</button>
                     </form>
