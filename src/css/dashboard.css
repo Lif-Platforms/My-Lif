@@ -1,8 +1,14 @@
+.dashboard {
+    background: url("../assets/dashboard/Bg.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 50px;
+}
+
 .dashboard-header {
     display: flex;
     margin-left: 50px;
     margin-right: 50px;
-    margin-top: 50px;
     padding: 20px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -10,6 +16,7 @@
     border-radius: 1em;
     background-color: rgba(255, 255, 255, 0.3);
     background-blend-mode: lighten;
+    box-shadow: 0 0 20px rgb(85, 85, 85);
 }
 
 .dashboard-header img {
@@ -45,7 +52,8 @@
 }
 
 .dashboard-section-items div {
-    background-color: #ebebeb;
+    background-color: white;
+    box-shadow: 0 0 25px rgb(185, 185, 185);
     border-radius: 17px;
     text-align: center;
     margin: 20px;
@@ -53,11 +61,10 @@
     width: 200px;
     border: solid #ebebeb 1px;
     user-select: none;
-    transition: 0.3s ease-in-out;
+    transition: 0.2s ease-in-out;
 }
 
 .dashboard-section-items div:hover {
-    background-color: white;
-    border: solid black 1px;
+    background-color: rgb(235, 235, 235);
     cursor: pointer;
 }

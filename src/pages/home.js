@@ -7,7 +7,6 @@ import Cookies from "js-cookie";
 // Asset Import
 import Avatar from "../assets/dashboard/avatar.svg";
 import Banner from '../assets/dashboard/banner.svg';
-import Placeholder from "../assets/placeholder-banner.png";
 import Bio from "../assets/dashboard/bio.svg";
 import Security_Icon from "../assets/dashboard/security.svg";
 
@@ -118,7 +117,7 @@ function Home() {
     }, [])
 
     return (
-        <div className="App">
+        <div className="dashboard">
             <Header />
             <Personalization />
             <Security />
