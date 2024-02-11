@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import Logo from "../assets/Lif_Logo.png"
 import '../css/login.css';
 import { useNavigate, Link } from "react-router-dom";
@@ -5,19 +6,39 @@ import { useNavigate, Link } from "react-router-dom";
 function Login() {
     const navigate = useNavigate(); 
 
+    const loader = useRef();
+    const loginForm = useRef();
+    const usernameInput = useRef();
+    const passwordInput = useRef();
+    const loginButton = useRef();
+    const loginStatus = useRef();
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        if (isLoading) {
+            loader.current.className = "loader-active";
+            loginForm.current.style.opacity = 0.5;
+            usernameInput.current.disabled = true;
+            passwordInput.current.disabled = true;
+            loginButton.current.disabled = true;
+
+        } else {
+            loader.current.className = "loader";
+            loginForm.current.style.opacity = 1;
+            usernameInput.current.disabled = false;
+            passwordInput.current.disabled = false;
+            loginButton.current.disabled = false;
+        }   
+    }, [isLoading])
+
     // Function for handling the login process
     async function handle_login() {
-        // Changes the login buttons state
-        const login_button = document.getElementById("login_button");
-        login_button.innerHTML = "Logging In...";
-        login_button.disabled = true;
+        setIsLoading(true);
 
-        // Gets the username and password from the login form
-        const username_input = document.getElementById('Username');
-        const password_input = document.getElementById('Password');
-
-        const username = username_input.value;
-        const password = password_input.value; 
+        // Get username and password values
+        const username = usernameInput.current.value;
+        const password = passwordInput.current.value;
 
         // Logs in the user with the lif auth server
         fetch(`${process.env.REACT_APP_AUTH_URL}/login/${username}/${password}`)
@@ -38,36 +59,40 @@ function Login() {
 
                 navigate('/');
             } else {
-                document.getElementById('login_status').innerHTML = "Incorrect Username or Password";
-                document.getElementById('login_button').innerHTML = "Login";
-                document.getElementById('login_button').disabled = false;
+                loginStatus.current.innerHTML = "Incorrect Username or Password";
+                setIsLoading(false);
             }
         })
         .catch(error => {
             // Handle any errors
             console.error(error);
+            setIsLoading(false);
+            loginStatus.current.innerHTML = "Something Went Wrong!";
         });
     }   
 
     return(
         <div className="LoginPage">
-            <div className="LoginForm">
-                <img src={Logo} alt="Lif-Logo" />
-                <h1>Login With Lif</h1>
-                <form>
-                    <input type="Username" id="Username" placeholder="Username" />
+            <div className="login-container">
+                <span ref={loader} className="loader" />
+                <div ref={loginForm}>
+                    <img src={Logo} alt="Lif-Logo" />
+                    <h1>Login With Lif</h1>
+                    <form>
+                        <input type="Username" ref={usernameInput} placeholder="Username" />
+                        <br />
+                        <input type="Password" ref={passwordInput} placeholder="Password"/>
+                        <br />
+                        <button type="button" ref={loginButton} onClick={handle_login}>Login</button>
+                    </form>
                     <br />
-                    <input type="Password" id="Password" placeholder="Password"/>
-                    <br />
-                    <button type="button" id='login_button' onClick={handle_login}>Login</button>
-                </form>
-                <br />
-                <span id="login_status" className="login-status"></span>
-                <Link to="/account_recovery">Forgot Password</Link>
+                    <span ref={loginStatus} className="login-status"></span>
+                    <Link to="/account_recovery">Forgot Password</Link>  
+                </div>
+                
             </div>
             <div className="create-account">
-                <p>Don't have an account?</p>
-                <Link to="/create_account">Create One!</Link>
+                <p>Don't have an account? <Link to="/create_account">Create One!</Link></p>
             </div>
         </div>
     )
