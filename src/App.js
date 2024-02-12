@@ -20,7 +20,7 @@ function App() {
     <HashRouter>
       <Routes>
         <Route path="/" element={home_element} />
-        <Route path="/login" element={login_element} />
+        <Route path="/login/:redirect?" element={login_element} />
         <Route path="/settings/:section" element={settings_element} />
         <Route path="/create_account" element={create_account_element} />
         <Route path="/account_recovery" element={forget_password_element} />
