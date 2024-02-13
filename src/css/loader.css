@@ -1,0 +1,10 @@
+.spinner_z9k8 {
+    transform-origin: center;
+    animation: spinner_StKS .75s infinite linear;
+}
+
+@keyframes spinner_StKS {
+    100% {
+        transform:rotate(360deg);
+    }
+}
