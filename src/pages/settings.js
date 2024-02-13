@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import { get_username, get_token } from "../scripts/get_cookie";
 import "../css/settings.css";
+import Loader from "./global components/loader";
+import { upload } from "@testing-library/user-event/dist/upload";
 
 function SideBar({ setState, page }) {
     const [username, setUsername] = useState(null);
@@ -69,9 +71,42 @@ function SideBar({ setState, page }) {
     );
 }
 
+// Component for showing upload status of avatar and banner
+function UploadStatus({uploadStatus}) {
+    if (uploadStatus === "upload_avatar") {
+        return(
+            <div className="upload-status">
+                <Loader />
+                <p>Uploading Avatar...</p>
+            </div>
+        )
+    } else if (uploadStatus === "upload_avatar_complete") {
+        return(
+            <div className="upload-status">
+                <p style={{color: "green"}}>✔ Avatar Upload Complete!</p>
+            </div>
+        )
+    } else if (uploadStatus === "upload_banner") {
+        return(
+            <div className="upload-status">
+                <Loader />
+                <p>Uploading Banner...</p>
+            </div>
+        )
+    } else if (uploadStatus === "upload_banner_complete") {
+        return(
+            <div className="upload-status">
+                <p style={{color: "green"}}>✔ Banner Upload Complete!</p>
+            </div> 
+        )   
+    }
+}
+
 function SettingsPage({ state }) {
     const avatarInputRef = useRef(null);
     const bannerInputRef = useRef(null);
+
+    const [uploadStatus, setUploadStatus] = useState();
 
     async function handleAvatarUpload() {
         // Grab user avatar
@@ -80,6 +115,9 @@ function SettingsPage({ state }) {
         // Grab client auth info
         const username = await get_username();
         const token = await get_token();
+
+        // Set upload status
+        setUploadStatus("upload_avatar");
         
         const formData = new FormData();
         formData.append('file', file);
@@ -92,14 +130,20 @@ function SettingsPage({ state }) {
         })
         .then(response => {
             if (response.ok) {
-            console.log('File uploaded successfully.');
+                console.log('File uploaded successfully.');
+                setUploadStatus("upload_avatar_complete");
             } else {
-            console.error('An error occurred!');
+                console.error('An error occurred!');
             }
         })
         .catch(error => {
             console.error('An error occurred!', error);
         });
+
+        // Reset upload status after 5 seconds
+        setTimeout(() => {
+            setUploadStatus(null);
+        }, 5000);
     }
 
     async function handleBannerUpload() {
@@ -109,6 +153,9 @@ function SettingsPage({ state }) {
         // Grab client auth info
         const username = await get_username();
         const token = await get_token();
+
+        // Set upload status
+        setUploadStatus("upload_banner");
         
         const formData = new FormData();
         formData.append('file', file);
@@ -121,14 +168,20 @@ function SettingsPage({ state }) {
         })
         .then(response => {
             if (response.ok) {
-            console.log('File uploaded successfully.');
+                console.log('File uploaded successfully.');
+                setUploadStatus("upload_banner_complete");
             } else {
-            console.error('An error occurred!');
+                console.error('An error occurred!');
             }
         })
         .catch(error => {
             console.error('An error occurred!', error);
         });
+
+        // Reset upload status after 5 seconds
+        setTimeout(() => {
+            setUploadStatus(null);
+        }, 5000);
     }
 
     async function handle_personalization_update() {
@@ -280,6 +333,7 @@ function SettingsPage({ state }) {
                         <input id="bannerInput" type="file" style={{ display: 'none' }} ref={bannerInputRef} onChange={() => handleBannerUpload()} />
                         <button onClick={() => bannerInputRef.current.click()}>Choose</button>
                     </div>
+                    <UploadStatus uploadStatus={uploadStatus} />
                 </div>
                 <div className="options">
                     <div className="options-header">

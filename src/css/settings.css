@@ -29,6 +29,7 @@
     width: 50px;
     height: 50px;
     min-width: 50px;
+    object-fit: cover;
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 10px;
@@ -180,4 +181,16 @@
 
 .options-header h1 {
     margin: 0;
+}
+
+.upload-status {
+    display: flex;
+    justify-content: left !important;
+}
+
+.upload-status p {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    padding: 0;
 }
