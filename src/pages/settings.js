@@ -99,6 +99,12 @@ function UploadStatus({uploadStatus}) {
                 <p style={{color: "green"}}>✔ Banner Upload Complete!</p>
             </div> 
         )   
+    } else if (uploadStatus === "error") {
+        return(
+            <div className="upload-status">
+                <p style={{color: "red"}}>❌ Something Went Wrong!</p>
+            </div>
+        )
     }
 }
 
@@ -138,6 +144,7 @@ function SettingsPage({ state }) {
         })
         .catch(error => {
             console.error('An error occurred!', error);
+            setUploadStatus("error");
         });
 
         // Reset upload status after 5 seconds
@@ -176,6 +183,7 @@ function SettingsPage({ state }) {
         })
         .catch(error => {
             console.error('An error occurred!', error);
+            setUploadStatus("error");
         });
 
         // Reset upload status after 5 seconds
