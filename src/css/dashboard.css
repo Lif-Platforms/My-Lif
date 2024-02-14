@@ -33,6 +33,72 @@
     margin-bottom: auto;
 }
 
+.dashboard-header .more-icon {
+    width: 25px;
+    height: 25px;
+    background-color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 20px;
+    padding: 3px;
+    border-radius: 0.5em;
+    transition: 0.2s ease-in-out;
+    position: relative;
+}
+
+.dashboard-header .more-icon:hover {
+    background-color: rgb(216, 216, 216);
+}
+
+.dashboard-header .more-icon img {
+    width: 25px;
+    height: 25px;
+    border: none;
+}
+
+@keyframes menu-animation {
+    0% {
+        transform: scale(0.80);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.dashboard-header .more-menu {
+    background-color: white;
+    padding: 10px;
+    border-radius: 0.5em;
+    top: 35px;
+    right: 0;
+    position: absolute;
+    width: 100px;
+    animation-name: menu-animation;
+    animation-duration: 0.3s;
+    box-shadow: 0 0 10px rgb(228, 228, 228);
+}
+
+.dashboard-header .more-menu button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center;
+    transition: 0.2s ease-in-out;
+    width: 100%;
+    padding: 5px;
+    border-radius: 0.3em;
+}
+
+.dashboard-header .more-menu button:hover {
+    background-color: rgb(230, 230, 230);
+    
+}
+
 .dashboard-section {
     text-align: left;
     margin: 50px;
