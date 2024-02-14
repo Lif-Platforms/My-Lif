@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { get_username, get_token } from "../scripts/get_cookie";
 import "../css/settings.css";
 import Loader from "./global components/loader";
-import { upload } from "@testing-library/user-event/dist/upload";
+import Cookies from "js-cookie";
 
 function SideBar({ setState, page }) {
     const [username, setUsername] = useState(null);
@@ -398,6 +398,18 @@ function Settings() {
     useEffect(() => {
         setPageState(section);
     }, [section]);
+
+    const navigate = useNavigate();
+
+    // Check if user is logged in before proceeding
+    useEffect(() => {
+        const username = Cookies.get("LIF_USERNAME");
+        const token = Cookies.get("LIF_TOKEN");
+
+        if (!username || !token) {
+            navigate("/login");
+        }
+    }, [])
 
     return(
         <div className="settings-page">
