@@ -3,6 +3,7 @@ import Logo from "../assets/Lif_Logo.png"
 import '../css/login.css';
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import stop from "../assets/login/stop.png";
+import Cookies from "js-cookie";
 
 function Login() {
     const navigate = useNavigate(); 
@@ -17,6 +18,7 @@ function Login() {
 
     const [isLoading, setIsLoading] = useState(false);
     const [loginState, setLoginState] = useState("Login");
+    const [redirectSafe, setRedirectSafe] = useState(false);
 
     // Get redirect url parameter
     const [searchParams] = useSearchParams();
@@ -29,11 +31,25 @@ function Login() {
                 
                 if (tld !== "lifplatforms.com") {
                     setLoginState("Dangerous_Redirect");
+                } else {
+                    setRedirectSafe(true)
                 }
-        }        
+        } else {
+            setRedirectSafe(true);
+        }    
     }, [redirect_value]);
-    
 
+    useEffect(() => {
+        if (redirectSafe) {
+            // Check if user is logged in already
+            const username = Cookies.get("LIF_USERNAME");
+            const token = Cookies.get("LIF_TOKEN");
+
+            if (username && token) {
+                setLoginState("Continue_As");
+            }
+        }
+    }, [redirectSafe])
 
     useEffect(() => {
         if (loginState === "Login") {
@@ -70,8 +86,6 @@ function Login() {
                 let exception = new Error('Request failed with status code: ' + response.status);
                 exception.status = response.status;
                 throw exception;
-
-
             }
         })
         .then(data => {
@@ -101,6 +115,24 @@ function Login() {
             }    
         });
     }   
+
+    function handle_account_switch() {
+        // Remove auth cookies
+        Cookies.remove("LIF_USERNAME");
+        Cookies.remove("LIF_TOKEN");
+
+        window.location.reload();
+    }
+
+    function handle_continue() {
+        // Check for service redirect
+        if (redirect_value) {
+            window.location.href = redirect_value;
+        } else {
+            navigate('/');
+        }   
+    }
+
     if (loginState === "Login") {
         return(
             <div className="LoginPage">
@@ -134,6 +166,18 @@ function Login() {
                     <img src={stop} />
                     <h1>Untrusted Link</h1>
                     <p>The link you provided does not redirect to lifplatforms.com or any Lif Platforms sub-domains. Please ensure your link is from a trusted source.</p>
+                </div>
+            </div>
+        )
+    } else if (loginState === "Continue_As") {
+        return(
+            <div className="LoginPage">
+                <div className="login-container">
+                    <img src={`${process.env.REACT_APP_AUTH_URL}/get_pfp/${Cookies.get("LIF_USERNAME")}.png`} className="large-avatar" />
+                    <h1>Continue as <br /> {Cookies.get("LIF_USERNAME")}</h1>
+                    <button onClick={() => handle_continue()}>Continue</button>
+                    <br />
+                    <Link style={{marginTop: 25, display: "block"}} onClick={() => handle_account_switch()}>Log out and use different account</Link>
                 </div>
             </div>
         )
