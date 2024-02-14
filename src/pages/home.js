@@ -1,8 +1,9 @@
 import { get_username } from "../scripts/get_cookie";
 import "../css/dashboard.css";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import More from "../assets/dashboard/more.png";
 
 // Asset Import
 import Avatar from "../assets/dashboard/avatar.svg";
@@ -10,7 +11,31 @@ import Banner from '../assets/dashboard/banner.svg';
 import Bio from "../assets/dashboard/bio.svg";
 import Security_Icon from "../assets/dashboard/security.svg";
 
+function MoreMenu({ menuOpen }) {
+
+    // Create navigation
+    const navigate = useNavigate();
+
+    function handle_logout() {
+        Cookies.remove("LIF_USERNAME");
+        Cookies.remove("LIF_TOKEN");
+
+        // Navigate to login page
+        navigate("/login");
+    }
+
+    if (menuOpen) {
+        return(
+            <div className="more-menu">
+                <button onClick={() => handle_logout()}>Log Out</button>
+            </div>
+        );
+    } 
+}
+
 function Header() {
+    const [openMenu, setMenuOpen] = useState(false);
+
     // Get the users name
     useEffect(() => {
         async function set_avatar() {
@@ -29,6 +54,10 @@ function Header() {
         <div className="dashboard-header" id="user-banner">
             <img id="user-avatar" alt="" />
             <h1 id="user-name">Guest</h1>
+            <div className="more-icon" onClick={() => setMenuOpen(!openMenu)}>
+                <img src={More} alt="" />
+                <MoreMenu menuOpen={openMenu} />
+            </div>
         </div>
     )
 }
