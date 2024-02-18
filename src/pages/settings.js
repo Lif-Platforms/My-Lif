@@ -355,7 +355,7 @@ function SettingsPage({ state }) {
                     <div>
                         <h1>Pronouns</h1>
                         <select id="user_pronouns">
-                            <option value="none">Other</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
                             <option value="he/him">he/him</option>
                             <option value="she/her">she/her</option>
                             <option value="they/them">they/them</option>
