@@ -171,7 +171,7 @@ function CreateAccount() {
             <div className="create-account-page">
                 <div className="content-container">
                     <div className="welcome-section">
-                        <img src={LifLogo} alt="Lif Logo" />
+                        <img className="lif-logo" src={LifLogo} alt="Lif Logo" />
                         <h1>Welcome To Lif!</h1>
                         <p>Your Social Starts Here</p>
                         <button onClick={() => handle_welcome_navigate()}>Lets Go!</button>

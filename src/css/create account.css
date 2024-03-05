@@ -16,9 +16,27 @@
     padding: 50px;
     border: 1px solid black;
     text-align: center;
-    width: 600px;
-    height: 400px;
+    max-width: 600px;
+    width: 100%;
+    height: 450px;
+    margin: 5px;
+    display: block;
+    box-sizing: border-box;
     position: relative;
+}
+
+.lif-logo {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    margin: 0px;
+    padding: 0px;
+}
+
+@media screen and (max-width: 400px) {
+    .content-container {
+        padding: 50px 20px;
+    }
 }
 
 .welcome-section {
@@ -71,7 +89,9 @@
 }
 
 .username-select input {
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
     border-radius: 0.5em;
     padding: 10px;
     font-family: Arial, Helvetica, sans-serif;
@@ -102,7 +122,9 @@
 }
 
 .enter-email input {
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
     border-radius: 0.5em;
     padding: 10px;
     font-family: Arial, Helvetica, sans-serif;
@@ -141,7 +163,9 @@
 .enter-password input {
     display: block;
     margin-top: 10px;
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
     border-radius: 0.5em;
     padding: 10px;
     font-family: Arial, Helvetica, sans-serif;
