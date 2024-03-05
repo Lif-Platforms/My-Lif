@@ -31,6 +31,9 @@
     margin-left: 10px;
     margin-top: auto;
     margin-bottom: auto;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .dashboard-header .more-icon {
@@ -104,12 +107,24 @@
     margin: 50px;
 }
 
+@media screen and (max-width: 600px) {
+    .dashboard-section {
+        margin: 20px;
+    }
+
+    .dashboard-header {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
+
 .dashboard-section h1 {
     font-size: xx-large;
 }
 
 .dashboard-section-items {
     display: flex;
+    overflow-x: scroll;
 }
 
 .dashboard-section-items img {
@@ -125,7 +140,8 @@
     text-align: center;
     margin: 20px;
     padding: 20px;
-    width: 200px;
+    min-width: 200px;
+    min-height: 250px;
     border: solid #ebebeb 1px;
     user-select: none;
     transition: 0.2s ease-in-out;
