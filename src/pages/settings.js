@@ -5,7 +5,22 @@ import "../css/settings.css";
 import Loader from "./global components/loader";
 import Cookies from "js-cookie";
 
-function SideBar({ setState, page }) {
+function TopNav({ sidebarMode }) {
+    if (sidebarMode === "compact") {
+        return(
+            <div className="top-nav">
+                <button type="button" class="hamburger-bars">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <h1>My Lif</h1>
+            </div>
+        );
+    }
+}
+
+function SideBar({ setState, page, sidebarMode }) {
     const [username, setUsername] = useState(null);
     const pageNavigate = useNavigate();
 
@@ -57,18 +72,21 @@ function SideBar({ setState, page }) {
         return `${process.env.REACT_APP_AUTH_URL}/get_pfp/${username}.png?dummy=${number}`;
     }
 
-    return (
-    <div className="sidebar">
-        <div className="sidebar-header">
-            <img src={get_avatar_url()} alt={`Profile picture of ${username}`} className="user-avatar" />
-            <h1>{username}</h1>
-        </div>
-        <div className="sidebar-buttons" id="sidebar-buttons">
-            <button id="personalization" className={page === 'personalization' ? 'active' : ''} onClick={() => navigate('personalization')}>Personalization</button>
-            <button id="security" className={page === 'security' ? 'active' : ''} onClick={() => navigate('security')}>Security</button>
-        </div>
-    </div>
-    );
+    // Check sidebar mode
+    if (sidebarMode === "normal") {
+       return (
+            <div className="sidebar">
+                <div className="sidebar-header">
+                    <img src={get_avatar_url()} alt={`Profile picture of ${username}`} className="user-avatar" />
+                    <h1>{username}</h1>
+                </div>
+                <div className="sidebar-buttons" id="sidebar-buttons">
+                    <button id="personalization" className={page === 'personalization' ? 'active' : ''} onClick={() => navigate('personalization')}>Personalization</button>
+                    <button id="security" className={page === 'security' ? 'active' : ''} onClick={() => navigate('security')}>Security</button>
+                </div>
+            </div>
+            ); 
+    }
 }
 
 // Component for showing upload status of avatar and banner
@@ -390,6 +408,11 @@ function SettingsPage({ state }) {
 
 function Settings() {
     const [pageState, setPageState] = useState('personalization');
+    const [windowSize, setWindowSize] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+    });
+    const [sidebarMode, setSidebarMode] = useState('normal');
 
     // Grab the section from the url
     const { section } = useParams();
@@ -409,11 +432,39 @@ function Settings() {
         if (!username || !token) {
             navigate("/login");
         }
-    }, [])
+    }, []);
+
+    // Update window size when the screen is resized
+    const handleResize = () => {
+        setWindowSize({
+            width: window.innerWidth,
+            height: window.innerHeight,
+        });
+    };
+
+    useEffect(() => {
+        // Attach event listener
+        window.addEventListener('resize', handleResize);
+    
+        // Clean up the event listener when the component unmounts
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    // Update sidebar mode on page resize
+    useEffect(() => {
+        if (windowSize.width <= 830) {
+            setSidebarMode("compact");
+        } else {
+            setSidebarMode("normal");
+        }
+    }, [windowSize]);
 
     return(
         <div className="settings-page">
-            <SideBar setState={setPageState} page={pageState} />
+            <TopNav sidebarMode={sidebarMode} />
+            <SideBar setState={setPageState} page={pageState} sidebarMode={sidebarMode} />
             <SettingsPage state={pageState} /> 
         </div>
     )
