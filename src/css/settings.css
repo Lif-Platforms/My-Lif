@@ -1,12 +1,27 @@
 .settings-page {
     display: grid;
     grid-template-columns: 250px auto;
-    height: 100%;
+    height: 100vh;
     padding: 20px;
     background: url("../assets/Bg.svg");
     background-size: cover;
     background-repeat: no-repeat;
     box-sizing: border-box;
+    object-fit: fill;
+}
+
+@media screen and (max-width: 830px) {
+    .settings-page {
+        display: block;
+        padding-top: 100px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .settings-page {
+        padding: 0px;
+        padding-top: 100px;
+    }
 }
 
 .sidebar-header {
@@ -79,7 +94,16 @@
 
 .settings {
     margin-left: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
     overflow-y: auto;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 830px) {
+    .settings {
+        margin-left: 0px;
+    }
 }
 
 .settings h1 {
@@ -88,17 +112,25 @@
 
 .page-title {
     font-size: 50px;
-    margin: 0 0px 30px 50px;
+    margin-bottom: 30px;
+    margin-top: 0;
+}
+
+@media screen and (max-width: 400px) {
+    .page-title {
+        font-size: 40px;
+    }
 }
 
 .options {
     border-radius: 15px;
     overflow: hidden;
-    width: 600px;
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
     display: block;
     background-color: white;
     box-shadow: 0 0 20px rgb(134, 134, 134);
-    margin-left: 50px;
     margin-bottom: 50px;
 }
 
@@ -107,6 +139,17 @@
     justify-content: space-between; /* Align items to left and right edges */
     margin: auto;
     padding: 10px;
+}
+
+@media screen and (max-width: 450px) {
+    #bio_section {
+        display: block !important;
+    }
+
+    #bio_section textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
 }
 
 .options hr {
@@ -167,6 +210,16 @@
     outline-color: #719ECE;
 }
 
+@media screen and (max-width: 550px) {
+    #old_password_section {
+        display: block;
+    }
+
+    #new_password_section {
+        display: block;
+    }
+}
+
 .options .small-button {
     padding: 5px 15px 5px 15px;
     font-size: small;
@@ -193,4 +246,110 @@
     margin-bottom: auto;
     margin-left: 10px;
     padding: 0;
+}
+
+.top-nav {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    margin: auto;
+    justify-content: space-between; /* Add this */
+    align-items: center;
+    flex-direction: row;
+    z-index: 999;
+}
+
+.top-nav h1 {
+    margin-left: 20px;
+    align-self: flex-start;
+    margin-right: auto; 
+}
+
+.hamburger-bars {
+    display: initial;
+    text-align: right;
+    background-color: transparent;
+    border: none;
+    font-size: xx-large;
+    color: black;
+    font-weight: 300;
+    width: 25px;
+    padding: 0;
+    margin-left: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+    border-radius: 5px;
+    background-color: white;
+    height: max-content;
+    padding: 3px;
+    transition: 0.1s ease-in-out;
+    align-self: flex-start;
+ }
+
+ .hamburger-bars:active {
+    transform: scale(0.90);
+ } 
+ 
+ .hamburger-bars span {
+     display: block;
+     width: 100%;
+     height: 2px;
+     margin-top: 6px;
+     background-color: black;
+     border-radius: 1em;
+     transition: 0.3s ease-in-out;
+}
+
+.top-nav img {
+    min-width: 45px;
+    min-height: 45px;
+    max-width: 45px;
+    max-height: 45px;
+    object-fit: cover;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 20px;
+    border-radius: 50%;
+    align-self: flex-end;
+}
+
+.hamburger-menu {
+    height: 100%;
+    position: fixed;
+    z-index: 980 !important;
+    top: 0;
+    background-color: white;
+    border-radius: 0.5em;
+    padding-top: 100px;
+    left: 0;
+    overflow: hidden;
+    transition: 0.2s ease-in-out;
+}
+
+.hamburger-menu button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    font-size: large;
+    background-color: transparent;
+    border: none;
+    transition: 0.2s ease-in-out;
+}
+
+.hamburger-menu button:active {
+    transform: scale(0.95);
+}
+
+.hamburger-menu.open {
+    width: 100%;
+    opacity: 1;
+}
+
+.hamburger-menu.closed {
+    width: 0%;
+    opacity: 0;
 }
