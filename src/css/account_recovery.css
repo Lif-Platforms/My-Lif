@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px;
 }
 
 .account-recovery-container {
@@ -15,6 +16,7 @@
     border-radius: 0.5em;
     box-shadow: 0 13px 25px 12px rgb(0 0 0 / 25%);
     padding: 10px;
+    box-sizing: border-box;
 }
 
 .account-recovery-container h1 {
@@ -27,6 +29,10 @@
     font-family: Arial;
     margin-right: 10px;
     margin-left: 10px;
+}
+
+.account-recovery-container div {
+    box-sizing: border-box;
 }
 
 .account-recovery-container button {
@@ -48,12 +54,16 @@
 
 .email-entry {
     display: block;
-    margin: auto 20px 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
     padding: 10px;
     font-family: Arial;
     border-radius: 0.5em;
     border: 1px solid black;
-    width: 300px;
+    max-width: 300px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .code-entry-form {
@@ -80,7 +90,9 @@
     font-family: Arial;
     border-radius: 0.5em;
     border: 1px solid black;
-    width: 300px;
+    max-width: 300px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .lif-logo {
