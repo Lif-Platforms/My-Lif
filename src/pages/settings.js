@@ -5,38 +5,52 @@ import "../css/settings.css";
 import Loader from "./global components/loader";
 import Cookies from "js-cookie";
 
-function TopNav({ sidebarMode }) {
+function HamburgerMenu({ menuClass, setPageState, setMenuOpen }) {
+
+    const navigate = useNavigate();
+
+    // Handle navigation
+    function handle_nav(page) {
+        setPageState(page);
+        navigate(`/settings/${page}`);
+        setMenuOpen(false);
+    }
+
+    return(
+        <div className={`hamburger-menu ${menuClass}`}>
+            <button onClick={() => handle_nav('personalization')}>Personalization</button>
+            <button onClick={() => handle_nav('security')}>Security</button>
+        </div>
+    )
+}
+
+function TopNav({ sidebarMode, avatarURL, menuOpen, setMenuOpen, setMenuClass }) {
+    
+    useEffect(() => {
+        if (!menuOpen) {
+            setMenuClass("closed");
+        } else {
+            setMenuClass("open");
+        }
+    }, [menuOpen]);
+    
     if (sidebarMode === "compact") {
         return(
             <div className="top-nav">
-                <button type="button" class="hamburger-bars">
+                <button type="button" className="hamburger-bars" onClick={() => setMenuOpen(!menuOpen)}>
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
                 <h1>My Lif</h1>
+                <img src={avatarURL} alt="User Avatar" />
             </div>
         );
     }
 }
 
-function SideBar({ setState, page, sidebarMode }) {
-    const [username, setUsername] = useState(null);
+function SideBar({ setState, page, sidebarMode, avatarURL, username }) {
     const pageNavigate = useNavigate();
-
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const result = await get_username();
-                setUsername(result);
-
-            } catch (error) {
-                console.error("Error fetching username:", error);
-            }
-        }
-
-        fetchData();
-    }, []);
 
     if (username === null) {
         // You can render a loading indicator here if needed
@@ -45,12 +59,12 @@ function SideBar({ setState, page, sidebarMode }) {
 
     function navigate(to_page) {
         // Get a reference to the parent <div>
-        const parentDiv = document.getElementById('sidebar-buttons'); // Replace 'parentDiv' with the actual ID of your parent <div>
+        const parentDiv = document.getElementById('sidebar-buttons');
     
         // Iterate through child <div> elements
-        const childDivs = parentDiv.querySelectorAll('div'); // You can adjust the selector as needed
+        const childDivs = parentDiv.querySelectorAll('div');
         childDivs.forEach((div) => {
-            // Check if the div has the class 'active' (replace with your desired class)
+            // Check if the div has the class 'active'
             if (div.classList.contains('active')) {
                 // Remove the class
                 div.classList.remove('active');
@@ -65,19 +79,12 @@ function SideBar({ setState, page, sidebarMode }) {
         pageNavigate(`/settings/${to_page}`);
     }
 
-    function get_avatar_url() {
-        // Generate a random number for dummy parameter to prevent caching
-        const number = Math.floor(Math.random() * 9000000000) + 1000000000;
-
-        return `${process.env.REACT_APP_AUTH_URL}/get_pfp/${username}.png?dummy=${number}`;
-    }
-
     // Check sidebar mode
     if (sidebarMode === "normal") {
        return (
             <div className="sidebar">
                 <div className="sidebar-header">
-                    <img src={get_avatar_url()} alt={`Profile picture of ${username}`} className="user-avatar" />
+                    <img src={avatarURL} alt={`Profile picture of ${username}`} className="user-avatar" />
                     <h1>{username}</h1>
                 </div>
                 <div className="sidebar-buttons" id="sidebar-buttons">
@@ -85,7 +92,7 @@ function SideBar({ setState, page, sidebarMode }) {
                     <button id="security" className={page === 'security' ? 'active' : ''} onClick={() => navigate('security')}>Security</button>
                 </div>
             </div>
-            ); 
+        ); 
     }
 }
 
@@ -365,7 +372,7 @@ function SettingsPage({ state }) {
                     <div className="options-header">
                         <h1>Bio/Info</h1>
                     </div>
-                    <div>
+                    <div id="bio_section">
                         <h1>Bio</h1>
                         <textarea placeholder="Tell us about yourself..." id="user_bio" />
                     </div>
@@ -391,11 +398,11 @@ function SettingsPage({ state }) {
                     <div className="options-header">
                         <h1>Password</h1>
                     </div>
-                    <div>
+                    <div id="old_password_section">
                         <h1>Current Password</h1>
                         <input placeholder="Password" type="password" id="old-password-input" />
                     </div>
-                    <div>
+                    <div id="new_password_section">
                         <h1>New Password</h1>
                         <input placeholder="Password" type="password" id="new-password-input" />
                     </div>
@@ -413,6 +420,10 @@ function Settings() {
         height: window.innerHeight,
     });
     const [sidebarMode, setSidebarMode] = useState('normal');
+    const [username, setUsername] = useState(null);
+    const [avatarURL, setAvatarURL] = useState(null);
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [menuClass, setMenuClass] = useState(null);
 
     // Grab the section from the url
     const { section } = useParams();
@@ -461,10 +472,33 @@ function Settings() {
         }
     }, [windowSize]);
 
+    useEffect(() => {
+            async function fetchData() {
+                try {
+                    const result = await get_username();
+                    setUsername(result);
+
+                } catch (error) {
+                    console.error("Error fetching username:", error);
+                }
+            }
+
+            fetchData();
+    }, []);
+
+    // Get avatar URL
+    useEffect(() => {
+        // Generate a random number for dummy parameter to prevent caching
+        const number = Math.floor(Math.random() * 9000000000) + 1000000000;
+
+        setAvatarURL(`${process.env.REACT_APP_AUTH_URL}/get_pfp/${username}.png?dummy=${number}`);
+    }, []);
+        
     return(
         <div className="settings-page">
-            <TopNav sidebarMode={sidebarMode} />
-            <SideBar setState={setPageState} page={pageState} sidebarMode={sidebarMode} />
+            <TopNav sidebarMode={sidebarMode} avatarURL={avatarURL} setPageState={setPageState} menuOpen={menuOpen} setMenuOpen={setMenuOpen} setMenuClass={setMenuClass} />
+            <HamburgerMenu menuClass={menuClass} setPageState={setPageState} setMenuOpen={setMenuOpen} />
+            <SideBar setState={setPageState} page={pageState} sidebarMode={sidebarMode} avatarURL={avatarURL} username={username} />
             <SettingsPage state={pageState} /> 
         </div>
     )
