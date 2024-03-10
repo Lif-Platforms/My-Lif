@@ -44,7 +44,7 @@ function Header() {
             // Generate random dummy number to prevent caching
             const number = Math.floor(Math.random() * 9000000000) + 1000000000;
 
-            document.getElementById('user-avatar').src = `${process.env.REACT_APP_AUTH_URL}/get_pfp/${username}.png?dummy=${number}`;
+            document.getElementById('user-avatar').src = `${process.env.REACT_APP_AUTH_URL}/profile/get_avatar/${username}.png?dummy=${number}`;
         }
         set_avatar()
     }, [])
@@ -119,7 +119,7 @@ function Home() {
             // Generate random dummy number to prevent caching
             const number = Math.floor(Math.random() * 9000000000) + 1000000000;
 
-            const url = `${process.env.REACT_APP_AUTH_URL}/get_banner/${username}.png?dummy=${number}`;
+            const url = `${process.env.REACT_APP_AUTH_URL}/profile/get_banner/${username}.png?dummy=${number}`;
             const accountHeader = document.getElementById("user-banner");
 
             document.getElementById("user-name").innerHTML = username;
