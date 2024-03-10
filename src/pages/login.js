@@ -75,7 +75,7 @@ function Login() {
         setIsLoading(true);
 
         // Logs in the user with the lif auth server
-        fetch(`${process.env.REACT_APP_AUTH_URL}/lif_login`, {
+        fetch(`${process.env.REACT_APP_AUTH_URL}/auth/login`, {
             method: "POST",
             body: new FormData(loginData.current)
         })

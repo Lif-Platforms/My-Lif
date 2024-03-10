@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 
 // Define the WebSocket connection here
 const socket = new WebSocket(
-    `${process.env.REACT_APP_AUTH_WS}/lif_account_recovery`,
+    `${process.env.REACT_APP_AUTH_WS}/account/account_recovery`,
 );
 
 // Get current window location

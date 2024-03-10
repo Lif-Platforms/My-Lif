@@ -155,7 +155,7 @@ function SettingsPage({ state }) {
         formData.append('username', username);
         formData.append('token', token);
 
-        fetch(`${process.env.REACT_APP_AUTH_URL}/update_pfp`, {
+        fetch(`${process.env.REACT_APP_AUTH_URL}/account/update_avatar`, {
             method: 'POST',
             body: formData
         })
@@ -194,7 +194,7 @@ function SettingsPage({ state }) {
         formData.append('username', username);
         formData.append('token', token);
 
-        fetch(`${process.env.REACT_APP_AUTH_URL}/update_profile_banner`, {
+        fetch(`${process.env.REACT_APP_AUTH_URL}/account/update_profile_banner`, {
             method: 'POST',
             body: formData
         })
@@ -238,7 +238,7 @@ function SettingsPage({ state }) {
         formData.append('pronouns', pronouns);
 
         // Make request to auth server
-        fetch(`${process.env.REACT_APP_AUTH_URL}/update_account_info/personalization`, {
+        fetch(`${process.env.REACT_APP_AUTH_URL}/account/update_info/personalization`, {
             method: "POST",
             body: formData
         })
@@ -258,7 +258,7 @@ function SettingsPage({ state }) {
             const user_bio = document.getElementById('user_bio');
             const username = await get_username();
 
-            fetch(`${process.env.REACT_APP_AUTH_URL}/get_user_bio/${username}`)
+            fetch(`${process.env.REACT_APP_AUTH_URL}/profile/get_bio/${username}`)
             .then(response => {
                 if (!response.ok) {
                   throw new Error('Network response was not ok');
@@ -288,7 +288,7 @@ function SettingsPage({ state }) {
             const user_pronouns = document.getElementById('user_pronouns');
             const username = await get_username();
 
-            fetch(`${process.env.REACT_APP_AUTH_URL}/get_user_pronouns/${username}`)
+            fetch(`${process.env.REACT_APP_AUTH_URL}/profile/get_pronouns/${username}`)
             .then(response => {
                 if (!response.ok) {
                   throw new Error('Network response was not ok');
@@ -331,7 +331,7 @@ function SettingsPage({ state }) {
         formData.append('new_password', new_password);
 
         // Make server request
-        fetch(`${process.env.REACT_APP_AUTH_URL}/lif_password_update`, {
+        fetch(`${process.env.REACT_APP_AUTH_URL}/account/update_password`, {
             method: 'POST',
             body: formData
         })
@@ -491,7 +491,7 @@ function Settings() {
         // Generate a random number for dummy parameter to prevent caching
         const number = Math.floor(Math.random() * 9000000000) + 1000000000;
 
-        setAvatarURL(`${process.env.REACT_APP_AUTH_URL}/get_pfp/${username}.png?dummy=${number}`);
+        setAvatarURL(`${process.env.REACT_APP_AUTH_URL}/profile/get_avatar/${username}.png?dummy=${number}`);
     }, []);
         
     return(

@@ -45,7 +45,7 @@ function CreateAccount() {
         document.getElementById("submit-button").innerHTML = "Loading...";
 
         // Check if username is already in use
-        fetch(`${process.env.REACT_APP_AUTH_URL}/check_account_info_usage/${info_type}/${info}`)
+        fetch(`${process.env.REACT_APP_AUTH_URL}/account/check_info_usage/${info_type}/${info}`)
             .then(response => {
                 if (response.ok) {
                 return response.json(); // Convert response to JSON
@@ -130,7 +130,7 @@ function CreateAccount() {
         // Update submit button
         document.getElementById("submit-button").innerHTML = "Creating...";
 
-        fetch(`${process.env.REACT_APP_AUTH_URL}/create_lif_account`, {
+        fetch(`${process.env.REACT_APP_AUTH_URL}/account/create_account`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
