@@ -136,8 +136,70 @@ function UploadStatus({uploadStatus}) {
 function SettingsPage({ state }) {
     const avatarInputRef = useRef(null);
     const bannerInputRef = useRef(null);
+    const emailEntryRef = useRef();
+    const passwordEntryRef = useRef();
+    const emailUpdateButton = useRef();
+    const emailUpdateStatus = useRef();
 
     const [uploadStatus, setUploadStatus] = useState();
+
+    // Handle email update
+    async function handle_email_update() {
+        // Get username, email and password
+        const email = emailEntryRef.current.value;
+        const password = passwordEntryRef.current.value;
+        const username = await get_username();
+
+        // Update button status
+        emailUpdateButton.current.innerHTML = "Updating...";
+
+        // Create form data
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('password', password);
+
+        // Update email with Auth Server
+        fetch(`${process.env.REACT_APP_AUTH_URL}/account/update_email`, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                // Update button status
+                emailUpdateButton.current.innerHTML = "Updated!";
+                emailUpdateStatus.current.innerHTML = "";
+                emailUpdateStatus.current.className = "email-update-status";
+
+                // Clear email and password entries
+                emailEntryRef.current.value = "";
+                passwordEntryRef.current.value = "";
+
+                // Reset update button
+                setTimeout(() => {
+                    emailUpdateButton.current.innerHTML = "Update";
+                }, 3000);
+
+            } else if (response.status === 400) {
+                throw new Error("Email is Invalid!");
+
+            } else if (response.status === 409) {
+                throw new Error("Email Already In Use!");
+
+            } else if (response.status === 401) {
+                throw new Error("Invalid Password!");
+
+            } else {
+                throw new Error("Something Went Wrong!");
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            emailUpdateButton.current.innerHTML = "Update";
+            emailUpdateStatus.current.innerHTML = error.message;
+            emailUpdateStatus.current.className = "email-update-status show"
+        })
+    }
 
     async function handleAvatarUpload() {
         // Grab user avatar
@@ -407,6 +469,21 @@ function SettingsPage({ state }) {
                         <input placeholder="Password" type="password" id="new-password-input" />
                     </div>
                     <button className="small-button" onClick={() => handle_password_update()} id="password-update">Update</button>
+                </div>
+                <div className="options">
+                    <div className="options-header">
+                        <h1>Email</h1>
+                    </div>
+                    <div id="email_entry_section">
+                        <h1>New Email</h1>
+                        <input placeholder="Email" type="email" ref={emailEntryRef} />
+                    </div>
+                    <div id="email_password_entry_section">
+                        <h1>Password</h1>
+                        <input placeholder="Password" type="password" ref={passwordEntryRef} />
+                    </div>
+                    <button className="small-button" onClick={() => handle_email_update()} ref={emailUpdateButton}>Update</button>
+                    <span ref={emailUpdateStatus} className="email-update-status" />
                 </div>
             </div>
         )

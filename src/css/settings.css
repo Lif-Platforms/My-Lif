@@ -353,3 +353,22 @@
     width: 0%;
     opacity: 0;
 }
+
+.email-update-status {
+    display: none;
+}
+
+.email-update-status.show {
+    display: inline;
+    color: red;
+}
+
+@media screen and (max-width: 430px) {
+    #email_entry_section {
+        display: block;
+    }
+
+    #email_password_entry_section {
+        display: block;
+    }
+}
