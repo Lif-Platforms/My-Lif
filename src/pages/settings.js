@@ -51,6 +51,7 @@ function TopNav({ sidebarMode, avatarURL, menuOpen, setMenuOpen, setMenuClass })
 
 function SideBar({ setState, page, sidebarMode, avatarURL, username }) {
     const pageNavigate = useNavigate();
+    const avatarImage = useRef();
 
     if (username === null) {
         // You can render a loading indicator here if needed
@@ -498,7 +499,7 @@ function Settings() {
     });
     const [sidebarMode, setSidebarMode] = useState('normal');
     const [username, setUsername] = useState(null);
-    const [avatarURL, setAvatarURL] = useState(null);
+    const [avatarURL, setAvatarURL] = useState();
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuClass, setMenuClass] = useState(null);
 
@@ -565,11 +566,10 @@ function Settings() {
 
     // Get avatar URL
     useEffect(() => {
-        // Generate a random number for dummy parameter to prevent caching
-        const number = Math.floor(Math.random() * 9000000000) + 1000000000;
-
-        setAvatarURL(`${process.env.REACT_APP_AUTH_URL}/profile/get_avatar/${username}.png?dummy=${number}`);
-    }, []);
+        console.log("username updated: " + username)
+        const timestamp = Date.now(); // Generate a unique timestamp
+        setAvatarURL(`${process.env.REACT_APP_AUTH_URL}/profile/get_avatar/${username}.png?dummy=${timestamp}`);
+    }, [username]);
         
     return(
         <div className="settings-page">
