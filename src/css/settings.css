@@ -1,13 +1,14 @@
 .settings-page {
     display: grid;
     grid-template-columns: 250px auto;
-    height: 100vh;
+    height: 100%;
     padding: 20px;
     background: url("../assets/Bg.svg");
     background-size: cover;
     background-repeat: no-repeat;
     box-sizing: border-box;
     object-fit: fill;
+    overflow: auto;
 }
 
 @media screen and (max-width: 830px) {
@@ -256,10 +257,12 @@
     width: 100%;
     background-color: white;
     margin: auto;
-    justify-content: space-between; /* Add this */
+    justify-content: space-between;
     align-items: center;
     flex-direction: row;
     z-index: 999;
+    border-bottom: 1px rgb(214, 214, 214) solid;
+    transition: 0.3s;
 }
 
 .top-nav h1 {

@@ -25,18 +25,25 @@ function HamburgerMenu({ menuClass, setPageState, setMenuOpen }) {
 }
 
 function TopNav({ sidebarMode, avatarURL, menuOpen, setMenuOpen, setMenuClass }) {
+    const topNavRef = useRef();
     
     useEffect(() => {
         if (!menuOpen) {
             setMenuClass("closed");
+
+            // Change bottom border
+            topNavRef.current.style.borderBottom = "rgb(214, 214, 214) 1px solid";
         } else {
             setMenuClass("open");
+
+            // Change bottom border
+            topNavRef.current.style.borderBottom = "white 1px solid";
         }
     }, [menuOpen]);
     
     if (sidebarMode === "compact") {
         return(
-            <div className="top-nav">
+            <div className="top-nav" ref={topNavRef}>
                 <button type="button" className="hamburger-bars" onClick={() => setMenuOpen(!menuOpen)}>
                     <span></span>
                     <span></span>
@@ -572,7 +579,7 @@ function Settings() {
     }, [username]);
         
     return(
-        <div className="settings-page">
+        <div className="settings-page" style={{ height: '100vh' }}>
             <TopNav sidebarMode={sidebarMode} avatarURL={avatarURL} setPageState={setPageState} menuOpen={menuOpen} setMenuOpen={setMenuOpen} setMenuClass={setMenuClass} />
             <HamburgerMenu menuClass={menuClass} setPageState={setPageState} setMenuOpen={setMenuOpen} />
             <SideBar setState={setPageState} page={pageState} sidebarMode={sidebarMode} avatarURL={avatarURL} username={username} />
