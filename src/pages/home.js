@@ -17,8 +17,7 @@ function MoreMenu({ menuOpen }) {
     const navigate = useNavigate();
 
     function handle_logout() {
-        Cookies.remove("LIF_USERNAME");
-        Cookies.remove("LIF_TOKEN");
+        window.remove_auth_cookies();
 
         // Navigate to login page
         navigate("/login");
@@ -39,7 +38,7 @@ function Header() {
     // Get the users name
     useEffect(() => {
         async function set_avatar() {
-            const username = await get_username();
+            const username = Cookies.get("LIF_USERNAME", {domain: ".lifplatforms.com"})
 
             // Generate random dummy number to prevent caching
             const number = Math.floor(Math.random() * 9000000000) + 1000000000;
