@@ -5,7 +5,7 @@ import "../css/settings.css";
 import Loader from "./global components/loader";
 import Cookies from "js-cookie";
 
-function HamburgerMenu({ menuClass, setPageState, setMenuOpen }) {
+function HamburgerMenu({ menuClass, setPageState, setMenuOpen, sidebarMode }) {
 
     const navigate = useNavigate();
 
@@ -16,29 +16,34 @@ function HamburgerMenu({ menuClass, setPageState, setMenuOpen }) {
         setMenuOpen(false);
     }
 
-    return(
-        <div className={`hamburger-menu ${menuClass}`}>
-            <button onClick={() => handle_nav('personalization')}>Personalization</button>
-            <button onClick={() => handle_nav('security')}>Security</button>
-        </div>
-    )
+    if (sidebarMode === "compact") {
+        return(
+            <div className={`hamburger-menu ${menuClass}`}>
+                <button onClick={() => handle_nav('personalization')}>Personalization</button>
+                <button onClick={() => handle_nav('security')}>Security</button>
+            </div>
+        )
+    }
 }
 
 function TopNav({ sidebarMode, avatarURL, menuOpen, setMenuOpen, setMenuClass }) {
     const topNavRef = useRef();
     
     useEffect(() => {
-        if (!menuOpen) {
-            setMenuClass("closed");
+        if (topNavRef.current) {
+            if (!menuOpen) {
+                setMenuClass("closed");
 
-            // Change bottom border
-            topNavRef.current.style.borderBottom = "rgb(214, 214, 214) 1px solid";
-        } else {
-            setMenuClass("open");
+                // Change bottom border
+                topNavRef.current.style.borderBottom = "rgb(214, 214, 214) 1px solid";
+            } else {
+                setMenuClass("open");
 
-            // Change bottom border
-            topNavRef.current.style.borderBottom = "white 1px solid";
+                // Change bottom border
+                topNavRef.current.style.borderBottom = "white 1px solid";
+            }
         }
+        
     }, [menuOpen]);
     
     if (sidebarMode === "compact") {
@@ -58,7 +63,6 @@ function TopNav({ sidebarMode, avatarURL, menuOpen, setMenuOpen, setMenuClass })
 
 function SideBar({ setState, page, sidebarMode, avatarURL, username }) {
     const pageNavigate = useNavigate();
-    const avatarImage = useRef();
 
     if (username === null) {
         // You can render a loading indicator here if needed
@@ -508,7 +512,7 @@ function Settings() {
     const [username, setUsername] = useState(null);
     const [avatarURL, setAvatarURL] = useState();
     const [menuOpen, setMenuOpen] = useState(false);
-    const [menuClass, setMenuClass] = useState(null);
+    const [menuClass, setMenuClass] = useState('closed');
 
     // Grab the section from the url
     const { section } = useParams();
@@ -581,7 +585,7 @@ function Settings() {
     return(
         <div className="settings-page" style={{ height: '100vh' }}>
             <TopNav sidebarMode={sidebarMode} avatarURL={avatarURL} setPageState={setPageState} menuOpen={menuOpen} setMenuOpen={setMenuOpen} setMenuClass={setMenuClass} />
-            <HamburgerMenu menuClass={menuClass} setPageState={setPageState} setMenuOpen={setMenuOpen} />
+            <HamburgerMenu menuClass={menuClass} setPageState={setPageState} setMenuOpen={setMenuOpen} sidebarMode={sidebarMode} />
             <SideBar setState={setPageState} page={pageState} sidebarMode={sidebarMode} avatarURL={avatarURL} username={username} />
             <SettingsPage state={pageState} /> 
         </div>

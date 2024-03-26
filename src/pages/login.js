@@ -91,9 +91,11 @@ function Login() {
         .then(data => {
             // Work with the data
             console.log(data);
-            
-            document.cookie = "LIF_TOKEN=" + data.token;
-            document.cookie = "LIF_USERNAME=" + usernameInput.current.value;
+
+            const lif_token = data.token;
+            const lif_username = usernameInput.current.value;
+
+            window.create_auth_cookies(lif_username, lif_token);
 
             // Check for service redirect
             if (redirect_value) {
