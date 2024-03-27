@@ -120,8 +120,7 @@ function Login() {
 
     function handle_account_switch() {
         // Remove auth cookies
-        Cookies.remove("LIF_USERNAME");
-        Cookies.remove("LIF_TOKEN");
+        window.remove_auth_cookies();
 
         window.location.reload();
     }
