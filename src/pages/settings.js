@@ -571,7 +571,7 @@ function Settings() {
     }, [username]);
         
     return(
-        <div className="settings-page" style={{ height: '100vh' }}>
+        <div className="settings-page">
             <TopNav sidebarMode={sidebarMode} avatarURL={avatarURL} setPageState={setPageState} menuOpen={menuOpen} setMenuOpen={setMenuOpen} setMenuClass={setMenuClass} />
             <HamburgerMenu menuClass={menuClass} setPageState={setPageState} setMenuOpen={setMenuOpen} sidebarMode={sidebarMode} />
             <SideBar setState={setPageState} page={pageState} sidebarMode={sidebarMode} avatarURL={avatarURL} username={username} />
