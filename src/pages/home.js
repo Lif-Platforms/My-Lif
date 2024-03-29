@@ -129,21 +129,6 @@ function Home() {
         set_banner()
     }, []);
 
-    // Create navigation instance
-    const navigate = useNavigate();
-
-    // Check if user is logged in
-    useEffect(() => {
-        // Get auth cookies
-        const username = Cookies.get("LIF_USERNAME");
-        const token = Cookies.get("LIF_TOKEN");
-
-        // Check if cookies exist and redirect to login if necessary
-        if (!username && !token) {
-            navigate("/login");
-        }
-    }, [])
-
     return (
         <div className="dashboard">
             <Header />

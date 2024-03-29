@@ -522,18 +522,6 @@ function Settings() {
         setPageState(section);
     }, [section]);
 
-    const navigate = useNavigate();
-
-    // Check if user is logged in before proceeding
-    useEffect(() => {
-        const username = Cookies.get("LIF_USERNAME");
-        const token = Cookies.get("LIF_TOKEN");
-
-        if (!username || !token) {
-            navigate("/login");
-        }
-    }, []);
-
     // Update window size when the screen is resized
     const handleResize = () => {
         setWindowSize({
