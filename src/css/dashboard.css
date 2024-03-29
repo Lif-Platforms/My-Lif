@@ -3,7 +3,8 @@
     background-size: cover;
     background-repeat: no-repeat;
     padding-top: 50px;
-    overflow: auto;
+    height: auto;
+    object-fit: fill;
 }
 
 .dashboard-header {
@@ -125,7 +126,7 @@
 
 .dashboard-section-items {
     display: flex;
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 .dashboard-section-items img {
