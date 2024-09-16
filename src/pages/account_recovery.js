@@ -3,14 +3,14 @@ import Cookies from "js-cookie";
 // Define the WebSocket connection here
 const socket = new WebSocket(
     `${process.env.REACT_APP_AUTH_WS}/account/account_recovery`,
+    console.log('connecting to websocket...')
 );
 
 // Get current window location
-const currentUrl = window.location.href;
-const hashValue = currentUrl.split('#')[1];
+const currentUrlPath = window.location.pathname;
 
 // If page is not account recovery then close connection
-if (hashValue !== "/account_recovery") {
+if (currentUrlPath !== "/account_recovery") {
     delete socket.close();
 }
 
