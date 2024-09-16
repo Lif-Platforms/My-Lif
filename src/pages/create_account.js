@@ -185,7 +185,7 @@ function CreateAccount() {
                 <div className="content-container">
                     <div className="username-select">
                         <h1>Choose A Username</h1>
-                        <p>Your username is one of the most important parts of your Lif Account. Its the name that others will see when they look at your profile. Choose wisely, they cannot be changed later.</p>
+                        <p>You're username is one of the most important parts of your Lif Account. Its the name that others will see when they look at your profile. Choose wisely, they cannot be changed later.</p>
                         <input id="username" placeholder="Username" />
                         <br />
                         <button id="submit-button" onClick={() => handle_navigate("username", "username", "add_email")}>Next</button>
@@ -200,7 +200,7 @@ function CreateAccount() {
                 <div className="content-container">
                     <div className="enter-email">
                         <h1>Add Your Email</h1>
-                        <p>Your email is crucial to your Lif account. It allows us to send you import emails, such as account recovery emails.</p>
+                        <p>You're email is crucial to your Lif account. It allows us to send you import emails, such as account recovery emails.</p>
                         <input id="email" placeholder="Email" />
                         <br />
                         <button id="submit-button" onClick={() => handle_navigate("email", "email", "add_password")}>Next</button>
@@ -215,7 +215,7 @@ function CreateAccount() {
                 <div className="content-container">
                     <div className="enter-password">
                         <h1>Choose a Password</h1>
-                        <p>Your password is how you will log into your Lif Account. Choose one you will remember.</p>
+                        <p>You're password is how you will log into your Lif Account. Choose one you will remember.</p>
                         <input type="password" placeholder="Password" id="password" />
                         <input type="password" placeholder="Confirm Password" id="confirm-password" />
                         <button id="submit-button" onClick={() => handle_password_add()}>Next</button>
@@ -229,7 +229,7 @@ function CreateAccount() {
             <div className="create-account-page">
                 <div className="content-container">
                     <div className="new-account">
-                        <h1>Your Account is Ready!</h1>
+                        <h1>You're Account is Ready!</h1>
                         <p>Press the "Create Account" button to jump into your social.</p>
                         <button id="submit-button" onClick={() => create_account()}>Create Account</button>
                         <span id="account-status" className="account-status" />
@@ -243,7 +243,7 @@ function CreateAccount() {
             <div className="create-account-page">
                 <div className="content-container">
                     <div className="new-account">
-                        <h1>Your In!</h1>
+                        <h1>You're In!</h1>
                         <p>You are now ready to dive into the social world with your Lif Account.</p>
                         <button id="submit-button" onClick={() => navigate("/")}>Done</button>
                         <span id="account-status" className="account-status" />
