@@ -13,14 +13,8 @@ import Security_Icon from "../assets/dashboard/security.svg";
 
 function MoreMenu({ menuOpen }) {
 
-    // Create navigation
-    const navigate = useNavigate();
-
     function handle_logout() {
-        window.remove_auth_cookies();
-
-        // Navigate to login page
-        navigate("/login");
+        window.location.href = `${process.env.REACT_APP_AUTH_URL}/auth/logout?redirect=https://my.lifplatforms.com/login`;
     }
 
     if (menuOpen) {
