@@ -118,11 +118,9 @@ function Login() {
         });
     }   
 
-    function handle_account_switch() {
+    async function handle_account_switch() {
         // Remove auth cookies
-        window.remove_auth_cookies();
-
-        window.location.reload();
+        window.location.href = `${process.env.REACT_APP_AUTH_URL}/auth/logout?redirect=https://my.lifplatforms.com`;
     }
 
     function handle_continue() {
