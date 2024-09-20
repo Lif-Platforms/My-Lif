@@ -1,0 +1,49 @@
+.continue_panel {
+    background-color: white;
+    padding: 20px;
+    border-radius: 1em;
+    max-width: 400px;
+    width: 100%;
+    height: max-content;
+    box-shadow: 0px 0px 30px rgb(75, 75, 75);
+    z-index: 1;
+    display: block;
+}
+
+.continue_panel img {
+    border-radius: 50%;
+    margin: 10px auto;
+    width: 50%;
+    display: block;
+}
+
+.continue_panel h1 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.continue_panel .continue_button {
+    background-color: #60ABFF;
+    border-radius: 0.8em;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    font-weight: bold;
+    padding: 10px;
+    margin-top: 40px;
+}
+
+.continue_panel .log_out_button {
+    background-color: #dddddd;
+    border-radius: 0.8em;
+    color: black;
+    border: none;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    font-weight: bold;
+    padding: 10px;
+    margin-top: 10px;
+}
