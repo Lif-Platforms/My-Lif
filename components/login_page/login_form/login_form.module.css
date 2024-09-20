@@ -2,11 +2,14 @@
     background-color: white;
     padding: 20px;
     border-radius: 1em;
-    width: 400px;
+    max-width: 400px;
+    width: 100%;
     height: max-content;
     box-shadow: 0px 0px 30px rgb(75, 75, 75);
     z-index: 1;
     display: block;
+    position: relative;
+    overflow: hidden;
 }
 
 .logo {
@@ -61,4 +64,34 @@
     text-align: center;
     display: block;
     margin: 10px 0;
+}
+
+.loader {
+    display: none;
+}
+
+@keyframes loading_animation {
+    0% {
+        width: 0%;
+        left: 0;
+    }
+    50% {
+        width: 100%;
+        left: 0;
+    }
+    100% {
+        left: 100%;
+        width: 0%;
+    }
+}
+
+.loader_loading {
+    width: 100%;
+    border-radius: 1em;
+    background-color: #60ABFF;
+    height: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: loading_animation 1s infinite;
 }
