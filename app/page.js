@@ -1,95 +1,67 @@
-import Image from "next/image";
+import TopNav from "@/components/global/topnav/topnav";
 import styles from "./page.module.css";
+import { cookies } from "next/headers";
+import Header from "@/components/main/header/header";
+import Selections from "@/components/main/selections/selections";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  const cookie_store = cookies();
+  const username_cookie = cookie_store.get('LIF_USERNAME');
+  const token_cookie = cookie_store.get('LIF_TOKEN');
+
+  if (!username_cookie && !token_cookie) {
+    return redirect('/login');
+  }
+
+  // Create form data for auth request
+  const formData = new FormData();
+  formData.append('username', username_cookie.value);
+  formData.append('token', token_cookie.value);
+
+  // Verify user is logged in
+  const auth_response = await fetch(`${process.env.AUTH_URL}/auth/verify_token`, {
+    method: 'POST',
+    body: formData
+  });
+
+  if (!auth_response.ok) {
+    return redirect('/login');
+  }
+
+  let pronouns;
+  let bio;
+
+  // Fetch profile info
+  const response = await fetch(`${process.env.AUTH_URL}/profile/get_pronouns/${username_cookie.value}`);
+
+  if (response.ok) {
+    pronouns = await response.text();
+    pronouns = pronouns.replace(/^"|"$/g, '');
+  } else {
+    pronouns = "Failed To Load!";
+  }
+
+  const response2 = await fetch(`${process.env.AUTH_URL}/profile/get_bio/${username_cookie.value}`);
+
+  if (response2.ok) {
+    bio = await response2.text();
+    bio = bio.replace(/^"|"$/g, '');
+  } else {
+    bio = "Failed to load!";
+  }
+
   return (
     <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+      <TopNav username={username_cookie.value} />
+      <div className={styles.content}>
+        <Header
+          username={username_cookie.value}
+          pronouns={pronouns}
+          bio={bio}
         />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <Selections />
+      </div>
     </div>
   );
 }

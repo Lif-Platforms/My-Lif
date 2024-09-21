@@ -1,0 +1,40 @@
+.selections {
+    margin-top: 50px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: 0 0 25px rgb(185, 185, 185);
+    min-width: 200px;
+    min-height: 250px;
+    padding: 30px;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.card:hover {
+    background-color: rgb(241, 241, 241);
+}
+
+.card img {
+    margin: auto;
+    display: block;
+    width: 150px;
+    height: 150px;
+}
+
+.card h1 {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    overflow-x: auto;
+    width: 100%;
+    justify-content: left;
+    padding: 50px 0;
+}
