@@ -1,0 +1,29 @@
+.side_bar {
+    border-right: 1px solid #DCDCDC;
+    height: 100%;
+    width: 100%;
+    padding-right: 30px;
+    box-sizing: border-box;
+}
+
+.side_bar a {
+    width: 100%;
+    background-color: white;
+    display: block;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 0 2em 2em 0;
+    text-align: center;
+    transition: 0.2s ease-in-out;
+}
+
+.side_bar .active {
+    background-color: #DCECFF !important;
+    transition: 0.2s ease-in-out;
+}
+
+@media screen and (max-width: 900px) {
+    .side_bar {
+        display: none;
+    }
+}
