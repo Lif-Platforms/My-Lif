@@ -1,0 +1,38 @@
+.tile {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tile form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.tile form h1 {
+    font-size: 24px;
+    font-weight: normal;
+    margin: auto 0;
+}
+
+.tile hr {
+    border: 1px solid #c0c0c0;
+    border-radius: 1em;
+}
+
+.tile form button {
+    background-color: #DCECFF;
+    border: none;
+    border-radius: 0.5em;
+    color: black;
+    text-decoration: none;
+    font-size: 16;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.tile form button:hover {
+    opacity: 0.5;
+}
