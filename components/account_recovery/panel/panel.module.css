@@ -1,0 +1,84 @@
+.panel {
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: 0px 0px 30px rgb(75, 75, 75);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 450px;
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+}
+
+.header .logo {
+    width: 150px;
+    height: inherit;
+    display: block;
+    margin: 0 auto;
+}
+
+.header h1 {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.header p {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.body {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.body input {
+    background-color: transparent;
+    border: 1px solid black;
+    outline: none;
+    padding: 10px;
+    border-radius: 0.5em;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: auto;
+    display: block;
+    margin-top: 20px;
+}
+
+.body input:disabled {
+    opacity: 0.5;
+}
+
+.loader {
+    width: 50px;
+    height: inherit;
+    margin: auto;
+    display: block;
+}
+
+.next_button {
+    background-color: #60ABFF;
+    border: none;
+    border-radius: 0.5em;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    width: 200px;
+    margin: 0 auto;
+    font-size: large;
+}
+
+.next_button:disabled {
+    opacity: 0.5;
+}
+
+.error_message {
+    color: red;
+    text-align: center;
+    margin: 15px 0;
+}
