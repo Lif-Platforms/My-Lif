@@ -1,6 +1,6 @@
 'use client'
 import styles from './continue_as.module.css';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 
 export default function ContinueAs({ username, redirect_url }) {
 

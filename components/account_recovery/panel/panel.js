@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from './panel.module.css';
 import { openConnection, closeConnection, sendMessage, receiveMessage } from '@/scripts/account_recovery/websocket_conn';
 import Loader from "../loader/loader";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 
 export default function Panel() {
     const [panelState, setPanelState] = useState('loading');

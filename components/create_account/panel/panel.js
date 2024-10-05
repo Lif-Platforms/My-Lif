@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import styles from './panel.module.css';
 import Loader from '@/components/account_recovery/loader/loader';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 
 export default function Panel() {
     const [panelState, setPanelState] = useState('welcome');
