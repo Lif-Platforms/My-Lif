@@ -1,6 +1,6 @@
 'use client'
 import styles from './selections.module.css';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 
 export default function Selections() {
 

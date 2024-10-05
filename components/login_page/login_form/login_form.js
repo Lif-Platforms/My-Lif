@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './login_form.module.css';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 
 
 export default function LoginForm({ redirect_url }) {
