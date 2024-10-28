@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './login_form.module.css';
 import Link from 'next/link';
 import { useRouter } from 'nextjs-toploader/app';
+import Cookies from 'js-cookie';
 
 
 export default function LoginForm({ redirect_url }) {
@@ -35,13 +36,25 @@ export default function LoginForm({ redirect_url }) {
         // Make auth request
         fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/auth/login`, {
             method: "POST",
-            headers: {
-                "set-auth-cookies": true
-            },
             body: formData
         })
-        .then((response) => {
+        .then(async (response) => {
+            // Parse response
+            const data = await response.json();
+
+            // Get username from form data
+            const username = formData.get('username');
+
             if (response.ok) {
+                // Set auth cookies
+                if (process.env.NODE_ENV === "development") {
+                    Cookies.set("LIF_USERNAME", username);
+                    Cookies.set("LIF_TOKEN", data.token);
+                } else {
+                    Cookies.set("LIF_USERNAME", username, {domain: ".lifplatforms.com"});
+                    Cookies.set("LIF_TOKEN", data.token, {domain: ".lifplatforms.com"});
+                }
+
                 // Check if there is a redirect URL
                 if (redirect_url) {
                     window.location.href = redirect_url;
