@@ -1,14 +1,14 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: Bug Report
+title: "[BUG]"
 labels: bug
 assignees: ''
 
 ---
 
-### Describe the bug
-<!--A clear and concise description of what the bug is.-->
+### Description 
+A clear and concise description of what the bug is.
 
 ### To Reproduce
 Steps to reproduce the behavior:
@@ -18,15 +18,15 @@ Steps to reproduce the behavior:
 4. See error
 
 ### Expected behavior
-<!--A clear and concise description of what you expected to happen.-->
+A clear and concise description of what you expected to happen.
 
 ### Screenshots
-<!--If applicable, add screenshots to help explain your problem.-->
+If applicable, add screenshots to help explain your problem.
 
-### Desktop
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
+### Platform
+ - OS: [e.g. Windows, MacOS]
+ - Browser [e.g. chrome, edge]
  - Version [e.g. 22]
 
 ### Additional context
-<!--Add any other context about the problem here.-->
+Add any other context about the problem here.
