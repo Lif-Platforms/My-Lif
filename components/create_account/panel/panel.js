@@ -157,7 +157,7 @@ export default function Panel() {
                 <div className={styles.header}>
                     <img className={styles.logo} src='/logo.png' alt='Lif Logo' />
                     <h1>Welcome To Lif</h1>
-                    <p>You're social starts here.</p>
+                    <p>Your social starts here.</p>
                 </div>
                 <button onClick={() => setPanelState('stage1')} className={styles.next_button}>Lets Go</button>
             </div>
@@ -218,10 +218,10 @@ export default function Panel() {
                 <div className={styles.header}>
                     <img className={styles.logo} src='/logo.png' alt='Lif Logo' />
                     <h1>Your Account is Ready</h1>
-                    <p>Click the "Create Account" button to jump into your social.</p>
+                    <p>Click the &quot;Create Account&quot; button to jump into your social.</p>
                 </div>
                 <div className={styles.body}>
-                    <p className={styles.disclaimer_text}>By clicking "Create Account" you agree to be bound by the <a target='blank_' href='https://lifplatforms.com/terms%20of%20service'>Terms of Service</a> and <a target='blank_' href='https://lifplatforms.com/privacy%20policy'>Privacy Policy</a>.</p>
+                    <p className={styles.disclaimer_text}>By clicking &quot;Create Account&quot; you agree to be bound by the <a target='blank_' href='https://lifplatforms.com/terms%20of%20service'>Terms of Service</a> and <a target='blank_' href='https://lifplatforms.com/privacy%20policy'>Privacy Policy</a>.</p>
                     <p className={styles.error_message}>{errorMessage}</p>
                 </div>
                 <button disabled={isLoading} onClick={handle_account_creation} className={styles.next_button}>Create Account</button>
@@ -233,7 +233,7 @@ export default function Panel() {
                 <Loader isLoading={isLoading} />
                 <div className={styles.header}>
                     <img className={styles.logo} src='/logo.png' alt='Lif Logo' />
-                    <h1>You're In</h1>
+                    <h1>You&apos;re In</h1>
                     <p>You are ready to dive into your social.</p>
                 </div>
                 <button onClick={() => router.push('/')} className={styles.next_button}>Done</button>
