@@ -178,7 +178,7 @@ export default function Panel() {
             <div className={styles.panel}>
                 <div className={styles.header}>
                     <img className={styles.logo} src="/logo.png" alt="Lif Logo" />
-                    <h1>You're All Set</h1>
+                    <h1>You&apos;re All Set</h1>
                     <p>Try to remember your password this time.</p>
                 </div>
                 <button onClick={() => router.push('/')} className={styles.next_button}>Done</button>
