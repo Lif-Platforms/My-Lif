@@ -27,6 +27,14 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED=1
 
+# Build-time arguments for NEXT_PUBLIC variables 
+ARG NEXT_PUBLIC_AUTH_URL 
+ARG NEXT_PUBLIC_AUTH_WS 
+
+# Set environment variables using ARG values 
+ENV NEXT_PUBLIC_AUTH_URL=$NEXT_PUBLIC_AUTH_URL 
+ENV NEXT_PUBLIC_AUTH_WS=$NEXT_PUBLIC_AUTH_WS
+
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
   elif [ -f package-lock.json ]; then npm run build; \
