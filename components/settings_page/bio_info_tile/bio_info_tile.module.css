@@ -1,0 +1,80 @@
+.tile {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tile form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.tile form textarea {
+    width: 300px;
+    height: 150px;
+    min-height: 150px;
+    resize: vertical;
+    color: black;
+    padding: 10px;
+    border-radius: 0.5em;
+    outline: none;
+    border: none;
+    background-color: #DCECFF;
+    font-family: Arial, Helvetica, sans-serif;
+    white-space: pre-wrap;
+}
+
+.tile form textarea:disabled {
+    opacity: 0.5;
+}
+
+@media screen and (max-width: 480px) {
+    .tile form textarea {
+        width: 200px;
+    }
+}
+
+.tile form h1 {
+    font-size: 24px;
+    font-weight: normal;
+    margin: auto 0;
+}
+
+.tile form select {
+    padding: 10px;
+    border-radius: 0.5em;
+    border: 1px solid black;
+    outline: none;
+}
+
+.tile form select:disabled {
+    opacity: 0.5;
+}
+
+.tile button {
+    background-color: #DCECFF;
+    border: none;
+    border-radius: 0.5em;
+    color: black;
+    text-decoration: none;
+    font-size: 16;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    width: max-content;
+    margin-left: auto;
+}
+
+.tile button:hover {
+    opacity: 0.5;
+}
+
+.tile button:disabled {
+    opacity: 0.5;
+}
+
+.tile hr {
+    border: 1px solid #c0c0c0;
+    border-radius: 1em;
+}

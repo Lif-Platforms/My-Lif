@@ -1,0 +1,40 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.page_content {
+    display: grid;
+    grid-template-columns: 300px auto;
+    flex-grow: 1;
+    height: 0
+}
+
+@media screen and (max-width: 900px) {
+    .page_content {
+        grid-template-columns: auto;
+    }
+}
+
+.content {
+    background-image: url('/bg.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow-y: auto;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.title {
+    margin: 20px 50px;
+    display: block;
+    font-size: 40px;
+    font-weight: normal;
+}
+
+@media screen and (max-width: 550px) {
+    .title {
+        margin: 20px;
+    }
+}

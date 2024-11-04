@@ -1,0 +1,39 @@
+.tile button {
+    background-color: #DCECFF;
+    border: none;
+    border-radius: 0.5em;
+    color: black;
+    text-decoration: none;
+    font-size: 16;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    width: max-content;
+    margin-left: auto;
+    display: block;
+}
+
+.tile button:hover {
+    opacity: 0.5;
+}
+
+.tile button img {
+    height: 15px;
+}
+
+.tile .footer {
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    width: max-content;
+    margin-left: auto;
+}
+
+.tile .error {
+    color: red;
+    display: block;
+    margin-right: 20px;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
