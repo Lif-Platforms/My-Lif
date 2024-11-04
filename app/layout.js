@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
+import LegacyRedirect from "@/components/legacy_redirect/legacy_redirect";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextTopLoader showSpinner={false} />
+        <LegacyRedirect />
         {children}
       </body>
     </html>
