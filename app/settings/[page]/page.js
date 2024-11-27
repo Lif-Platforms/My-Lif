@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import SideBar from '@/components/settings_page/sidebar/sidebar';
 import Tiles from '@/components/settings_page/tiles/tiles';
+import TopnavContainer from '@/components/global/topnav_container/topnav_container';
 
 export default async function Settings({ params }) {
     const cookie_store = cookies();
@@ -35,7 +36,7 @@ export default async function Settings({ params }) {
 
     return (
         <div className={styles.page}>
-            <TopNav username={username_cookie.value} />
+            <TopnavContainer username={username_cookie.value} />
             <div className={styles.page_content}>
                 <SideBar page={params.page} />
                 <div className={styles.content}>

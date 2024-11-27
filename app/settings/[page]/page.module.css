@@ -33,6 +33,12 @@
     font-weight: normal;
 }
 
+@media screen and (max-width: 900px) {
+    .content {
+        padding-top: 100px;
+    }
+}
+
 @media screen and (max-width: 550px) {
     .title {
         margin: 20px;

@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import Header from "@/components/main/header/header";
 import Selections from "@/components/main/selections/selections";
 import { redirect } from "next/navigation";
+import TopnavContainer from "@/components/global/topnav_container/topnav_container";
 
 export default async function Home() {
   const cookie_store = cookies();
@@ -53,7 +54,7 @@ export default async function Home() {
 
   return (
     <div className={styles.page}>
-      <TopNav username={username_cookie.value} />
+      <TopnavContainer username={username_cookie.value} />
       <div className={styles.content}>
         <Header
           username={username_cookie.value}
