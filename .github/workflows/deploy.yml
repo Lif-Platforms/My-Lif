@@ -1,4 +1,4 @@
-name: Build and push Docker image
+name: Deploy My Lif
 
 on:
   release:
@@ -25,3 +25,4 @@ jobs:
             DOCKER_BUILDKIT=1
             NEXT_PUBLIC_AUTH_URL=https://api.auth.lifplatforms.com
             NEXT_PUBLIC_AUTH_WS=wss://ws.api.auth.lifplatforms.com
+            SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_TOKEN }}
