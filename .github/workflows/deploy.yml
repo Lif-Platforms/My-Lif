@@ -20,7 +20,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: superior125/lmy-lif:latest
+          tags: superior125/my-lif:latest
           build-args: |
             DOCKER_BUILDKIT=1
             NEXT_PUBLIC_AUTH_URL=https://api.auth.lifplatforms.com
