@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './panel.module.css';
 import Loader from '@/components/account_recovery/loader/loader';
 import { useRouter } from 'nextjs-toploader/app';
@@ -14,6 +14,15 @@ export default function Panel() {
     const emailEntry = useRef();
     const passwordEntry = useRef();
     const confirmPasswordEntry = useRef();
+    const [userAgent, setUserAgent] = useState();
+    const [accountCredentials, setAccountCredentials] = useState({username: null, token: null});
+
+    useEffect(() => {
+        // Ensure this is running in the browser, not on the server
+        if (typeof window !== 'undefined') {
+          setUserAgent(navigator.userAgent);
+        }
+    }, []);
 
     function handle_username_check() {
         if (usernameEntry.current) {
@@ -137,11 +146,16 @@ export default function Panel() {
         })
         .then((response) => {
             if (response.ok) {
-                setIsLoading(false);
-                setPanelState('done');
+                return response.json();
             } else {
                 throw new Error('Something Went Wrong!');
             }
+        })
+        .then((data) => {
+            // Set the account credentials
+            setAccountCredentials({username: data.Username, token: data.Token});
+            setIsLoading(false);
+            setPanelState('done');
         })
         .catch((error) => {
             setIsLoading(false);
@@ -150,6 +164,19 @@ export default function Panel() {
     }
 
     const router = useRouter();
+
+    function handle_finnish() {
+        // Check if the user is using Ringer Mobile
+        if (userAgent === 'RingerMobileWebView') {
+            window.ReactNativeWebView.postMessage(JSON.stringify({
+                type: 'create_account',
+                username: accountCredentials.username,
+                token: accountCredentials.token
+            }));
+        } else {
+            router.push('/')
+        }
+    }
 
     if (panelState === 'welcome') {
         return (
@@ -236,7 +263,7 @@ export default function Panel() {
                     <h1>You&apos;re In</h1>
                     <p>You are ready to dive into your social.</p>
                 </div>
-                <button onClick={() => router.push('/')} className={styles.next_button}>Done</button>
+                <button onClick={handle_finnish} className={styles.next_button}>Done</button>
             </div>
         )
     }
