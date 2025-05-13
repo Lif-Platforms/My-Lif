@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import styles from './topnav.module.css';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 function Account_Panel({ username, showPanel }) {
 
@@ -23,9 +23,16 @@ function Account_Panel({ username, showPanel }) {
 }
 
 function Logo({ logoState, setShowSideNav, showSideNav }) {
+    const router = useRouter();
+
+    // Navigate back to the home page
+    function handle_navigation() {
+        router.push('/');
+    }
+
     if (logoState === 'logo') {
         return (
-            <div className={styles.logo}>
+            <div className={styles.logo} onClick={handle_navigation}>
                 <img className={styles.logo} src='/logo.png' />
                 <h1>My Lif</h1>
             </div>
@@ -34,7 +41,7 @@ function Logo({ logoState, setShowSideNav, showSideNav }) {
         return (
             <div className={styles.logo}>
                 <img className={styles.menu} onClick={() => setShowSideNav(!showSideNav)} src='/settings/hamburger.svg' />
-                <h1>My Lif</h1>
+                <h1 onClick={handle_navigation}>My Lif</h1>
             </div>
         );
     }
@@ -46,11 +53,11 @@ export default function TopNav({ username, showSideNav, setShowSideNav }) {
 
     useEffect(() => {
         function handleResize() {
-          if (window.innerWidth <= 900 && window.location.pathname.startsWith('/settings')) {
-            setLogoState('menu');
-          } else {
-            setLogoState('logo');
-          }
+            if (window.innerWidth <= 900 && window.location.pathname.startsWith('/settings')) {
+                setLogoState('menu');
+            } else {
+                setLogoState('logo');
+            }
         }
 
         // Run resize function once upon page load
@@ -60,7 +67,7 @@ export default function TopNav({ username, showSideNav, setShowSideNav }) {
     
         // Cleanup the event listener on component unmount
         return () => window.removeEventListener('resize', handleResize);
-      }, []);
+    }, []);
 
     return (
         <div className={styles.topnav}>

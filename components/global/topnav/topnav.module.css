@@ -25,6 +25,7 @@
 
 .topnav .logo {
     display: flex;
+    cursor: pointer;
 }
 
 .topnav .avatar img {
