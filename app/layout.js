@@ -3,13 +3,14 @@ import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
 import LegacyRedirect from "@/components/legacy_redirect/legacy_redirect";
 import React from 'react';
-import MicrosoftClarity from "@/components/microsoft_clarity/clarity";
+import { ClarityProvider } from "@/providers/global/clarity";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
+
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
@@ -27,8 +28,9 @@ export default function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextTopLoader showSpinner={false} />
         <LegacyRedirect />
-        <MicrosoftClarity />
-        {children}
+        <ClarityProvider>
+          {children}
+        </ClarityProvider>
       </body>
     </html>
   );

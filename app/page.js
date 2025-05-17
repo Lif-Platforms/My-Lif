@@ -5,6 +5,7 @@ import Header from "@/components/main/header/header";
 import Selections from "@/components/main/selections/selections";
 import { redirect } from "next/navigation";
 import TopnavContainer from "@/components/global/topnav_container/topnav_container";
+import CookieBanner from "@/components/global/cookie_banner/banner";
 
 export default async function Home() {
   const cookie_store = cookies();
@@ -63,6 +64,7 @@ export default async function Home() {
         />
         <Selections />
       </div>
+      <CookieBanner />
     </div>
   );
 }
