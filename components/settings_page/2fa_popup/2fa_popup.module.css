@@ -1,0 +1,23 @@
+.popup {
+    padding: 20px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.popup h1 {
+    text-align: center;
+}
+
+.popup p {
+    text-align: center;
+}
+
+.popup canvas {
+    margin: 0 auto;
+}
+
+.popup img {
+    display: block;
+}

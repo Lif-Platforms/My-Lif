@@ -5,6 +5,7 @@ import SideBar from '@/components/settings_page/sidebar/sidebar';
 import Tiles from '@/components/settings_page/tiles/tiles';
 import TopnavContainer from '@/components/global/topnav_container/topnav_container';
 import CookieBanner from '@/components/global/cookie_banner/banner';
+import { PopupProvider } from '@/providers/settings_page/popup';
 
 export default async function Settings({ params }) {
     const cookie_store = cookies();
@@ -41,7 +42,9 @@ export default async function Settings({ params }) {
                 <SideBar page={params.page} />
                 <div className={styles.content}>
                     <h1 className={styles.title}>{format_page_title}</h1>
-                    <Tiles page={params.page} />
+                    <PopupProvider>
+                        <Tiles page={params.page} />
+                    </PopupProvider>
                 </div>
             </div>
             <CookieBanner />

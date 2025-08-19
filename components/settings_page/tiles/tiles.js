@@ -5,6 +5,7 @@ import BioInfoTile from '../bio_info_tile/bio_info_tile';
 import PasswordTile from '../password_tile/password_tile';
 import EmailTile from '../email_tile/email_tile';
 import LogOutEverywhere from '../log_out_everywhere/log_out_everywhere';
+import TwoFaTile from '../2fa_tile/2fa_tile';
 
 export default function Tiles({ page }) {
     // Define tiles that will be rendered base on page
@@ -36,10 +37,16 @@ export default function Tiles({ page }) {
             id: 4
         },
         {
+            title: "2-Factor Authentication",
+            description: "Enable 2FA on your Lif Account.",
+            component: <TwoFaTile />,
+            id: 5
+        },
+        {
             title: "Log Out Everywhere",
             description: "Log out of your Lif Account on all your devices.",
             component: <LogOutEverywhere />,
-            id: 5
+            id: 6
         }
     ];
 

@@ -29,30 +29,27 @@ export default async function LoginPage({ searchParams }) {
             return <UnsafeLink />;
         }
     }
-    
-    // Check if username and token cookies exist
-    if (username_cookie && token_cookie) {
-        // Create form data for auth request
-        const formData = new FormData();
-        formData.append('username', username_cookie.value);
-        formData.append('token', token_cookie.value);
 
-        // Authenticate with auth server
-        const auth_response = await fetch(`${process.env.AUTH_URL}/auth/verify_token`, {
-            method: "POST",
-            body: formData
-        });
+    if (!username_cookie || !token_cookie) { return (
+        <div>
+            <LoginForm redirect_url={redirect_url} />
+            <CreateAccount />
+        </div>
+    )}
 
-        if (auth_response.ok) {
-            return <ContinueAs redirect_url={redirect_url} username={username_cookie.value} />;
-        } else {
-            return (
-                <div>
-                    <LoginForm redirect_url={redirect_url} />
-                    <CreateAccount />
-                </div>
-            )
-        }
+    // Create form data for auth request
+    const formData = new FormData();
+    formData.append('username', username_cookie.value);
+    formData.append('token', token_cookie.value);
+
+    // Authenticate with auth server
+    const auth_response = await fetch(`${process.env.AUTH_URL}/auth/verify_token`, {
+        method: "POST",
+        body: formData
+    });
+
+    if (auth_response.ok) {
+        return <ContinueAs redirect_url={redirect_url} username={username_cookie.value} />;
     } else {
         return (
             <div>
