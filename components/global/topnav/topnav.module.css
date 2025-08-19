@@ -2,13 +2,13 @@
     display: flex;
     border-bottom: 1px solid #DCDCDC;
     justify-content: space-between;
-    z-index: 2;
+    z-index: 999;
 }
 
 .topnav .logo .logo {
     width: 100px;
     margin: 15px;
-    z-index: 2;
+    z-index: 0;
 }
 
 .topnav .logo .menu {
