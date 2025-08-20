@@ -1,20 +1,22 @@
 .continue_panel {
     background-color: white;
     padding: 20px;
-    border-radius: 1em;
+    border-radius: 0.7em;
     max-width: 400px;
     width: 100%;
     height: max-content;
-    box-shadow: 0px 0px 30px rgb(75, 75, 75);
+    box-shadow: 0px 10px 25px rgb(196, 196, 196);
     z-index: 1;
     display: block;
+    height: 410px;
 }
 
 .continue_panel img {
-    border-radius: 50%;
     margin: 10px auto;
     width: 50%;
     display: block;
+    width: 120px;
+    height: 120px;
 }
 
 .continue_panel h1 {
@@ -24,7 +26,7 @@
 
 .continue_panel .continue_button {
     background-color: #60ABFF;
-    border-radius: 0.8em;
+    border-radius: 0.5em;
     color: white;
     border: none;
     cursor: pointer;
@@ -37,7 +39,7 @@
 
 .continue_panel .log_out_button {
     background-color: #dddddd;
-    border-radius: 0.8em;
+    border-radius: 0.5em;
     color: black;
     border: none;
     cursor: pointer;

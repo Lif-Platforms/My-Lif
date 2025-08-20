@@ -4,7 +4,7 @@ import styles from './login_form.module.css';
 import Link from 'next/link';
 import { useRouter } from 'nextjs-toploader/app';
 import Cookies from 'js-cookie';
-
+import { AnimatePresence, motion } from 'motion/react';
 
 export default function LoginForm({ redirect_url }) {
     const loginFormRef = useRef();
@@ -67,7 +67,7 @@ export default function LoginForm({ redirect_url }) {
                     if (resData.errorCode === "2FA_REQUIRED") {
                         setFormState("2-FACTOR-AUTH");
                     } else if (resData.errorCode === "INVALID_2FA_CODE") {
-                        setLoginStatus("Invalid code");
+                        setLoginStatus("The code you entered is invalid. Please try again.");
                     } else {
                         setLoginStatus("Incorrect username or password.");
                     }
@@ -78,7 +78,7 @@ export default function LoginForm({ redirect_url }) {
                 }
             }
         })
-        .catch((err) => {
+        .catch(() => {
             setIsLoading(false);
             setLoginStatus("Something Went Wrong");
         });
@@ -105,48 +105,61 @@ export default function LoginForm({ redirect_url }) {
             <div className={isLoading ? styles.loader_loading : styles.loader} />
             <div ref={loginContent}>
                 <img className={styles.logo} src='/logo.png' alt='Lif Logo' />
-                {formState === "LOGIN" ? (
-                    <>
-                        <h1 className={styles.title}>Login With Lif</h1>
-                        <form onSubmit={(event) => handle_credentials_submit(event)} ref={loginFormRef} className={styles.form}>
-                            <input
-                                name='username'
-                                required
-                                placeholder='Username'
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
-                            <input
-                                name='password'
-                                type='password'
-                                required
-                                placeholder='Password'
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                            <button type='submit'>Login</button>
-                        </form>
-                        <p className={styles.login_status}>{loginStatus}</p>
-                        <Link className={styles.link} href='/account_recovery'>Forgot Password</Link>
-                    </>
-                ) : (
-                    <>
-                        <h1 className={styles.title}>2-Factor Authentication</h1>
-                        <p className={styles.subTitle}>Open your authenticator app and enter the one-time code below.</p>
-                        <form className={styles.form} onSubmit={(event) => handle_two_factor_code_submit(event)}>
-                            <input 
-                                ref={twoFaCodeRef} 
-                                placeholder='Code...' 
-                                maxLength={6} 
-                                type='text'
-                                inputMode='numeric'
-                                pattern='[0-9]*'
-                            />
-                            <button type='submit'>Login</button>
-                        </form>
-                        <p className={styles.login_status}>{loginStatus}</p>
-                    </>
-                )}
+                <AnimatePresence mode='wait'>
+                    {formState === "LOGIN" ? (
+                        <>
+                            <h1 className={styles.title}>Login With Lif</h1>
+                            <p className={styles.subTitle}>Enter your credentials to access your Lif Account.</p>
+                            <form onSubmit={(event) => handle_credentials_submit(event)} ref={loginFormRef} className={styles.form}>
+                                <label for="usernameInput">Username</label>
+                                <input
+                                    name='username'
+                                    id="usernameInput"
+                                    required
+                                    placeholder='Enter your username'
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                />
+                                <label for="passwordInput">Password</label>
+                                <input
+                                    name='password'
+                                    type='password'
+                                    id="passwordInput"
+                                    required
+                                    placeholder='Password'
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                                <button type='submit'>Login</button>
+                            </form>
+                            <p className={styles.login_status}>{loginStatus}</p>
+                            <Link className={styles.link} href='/account_recovery'>Forgot Password?</Link>
+                        </>
+                    ) : (
+                        <motion.div
+                            key="slide"
+                            initial={{ x: 300, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            exit={{ x: -300, opacity: 0 }}
+                            transition={{ ease: "easeInOut", duration: 0.4 }}
+                        >
+                            <h1 className={styles.title}>2-Factor Authentication</h1>
+                            <p className={styles.subTitle}>Open your authenticator app and enter the one-time code below.</p>
+                            <form className={styles.form} onSubmit={(event) => handle_two_factor_code_submit(event)}>
+                                <input 
+                                    ref={twoFaCodeRef} 
+                                    placeholder='Code...' 
+                                    maxLength={6} 
+                                    type='text'
+                                    inputMode='numeric'
+                                    pattern='[0-9]*'
+                                />
+                                <button type='submit'>Verify Code</button>
+                            </form>
+                            <p className={styles.login_status}>{loginStatus}</p>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     )

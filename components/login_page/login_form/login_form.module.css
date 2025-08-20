@@ -1,19 +1,19 @@
 .login_form {
     background-color: white;
     padding: 20px;
-    border-radius: 1em;
+    border-radius: 0.7em;
     max-width: 400px;
     width: 100%;
-    height: max-content;
-    box-shadow: 0px 0px 30px rgb(75, 75, 75);
+    box-shadow: 0px 10px 25px rgb(196, 196, 196);
     z-index: 1;
     display: block;
     position: relative;
     overflow: hidden;
+    height: 410px;
 }
 
 .logo {
-    width: 150px;
+    width: 80px;
     margin: 0 auto;
     display: block;
 }
@@ -22,46 +22,67 @@
     text-align: center;
     display: block;
     margin: 15px 0;
+    font-weight: 520;
+    font-size: 25px;
 }
 
 .subTitle {
     text-align: center;
     display: block;
+    color: rgb(120, 120, 120);
+}
+
+.form {
+    margin-top: 30px;
 }
 
 .form input {
     width: 100%;
     box-sizing: border-box;
-    font-size: large;
     background-color: #EDEDED;
     border: none;
-    border-bottom: 1px solid #037AFE;
-    margin: 10px 0;
-    padding: 15px;
-    border-radius: 0.5em
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 0.5em;
+    outline: none;
+}
+
+.form label {
+    margin-top: 10px;
+    display: block;
+    font-size: small;
+    font-weight: bold;
 }
 
 .form button {
     background-color: #60ABFF;
     border: none;
-    border-radius: 0.8em;
+    border-radius: 0.5em;
     padding: 10px 50px;
     text-align: center;
     color: white;
-    font-weight: bold;
-    margin: 0 auto;
     display: block;
-    font-size: large;
     cursor: pointer;
+    width: 100%;
+    font-weight: 520;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.form button:hover {
+    background-color: #8dc2ff;
 }
 
 .link {
     color: #60ABFF;
     text-align: center;
-    text-decoration: underline #60ABFF;
     display: block;
     margin-top: 20px;
-    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+.link:hover {
+    text-decoration: underline #60ABFF;
 }
 
 .login_status {
