@@ -21,7 +21,7 @@ export default function ContinueAs({ username, redirect_url }) {
 
     return (
         <div className={styles.continue_panel}>
-            <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/profile/get_avatar/${username}.png`} />
+            <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/profile/get_avatar/${username}.png?crop=true`} />
             <h1>Continue As <br/> {username}</h1>
             <button onClick={handle_login} className={styles.continue_button}>Continue</button>
             <button onClick={handle_log_out} className={styles.log_out_button}>Use Other Account</button>
