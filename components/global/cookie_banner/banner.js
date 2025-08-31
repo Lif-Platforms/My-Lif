@@ -1,22 +1,30 @@
 'use client'
 
-import { useContext, useEffect, useState } from "react";
-import { ClarityContext } from "@/providers/global/clarity";
+import { useEffect, useState } from "react";
 import styles from "./banner.module.css";
 import Cookies from "js-cookie";
+import Clarity from "@microsoft/clarity";
 
 export default function CookieBanner() {
-    const { setConsent } = useContext(ClarityContext);
     const [showBanner, setShowBanner] = useState(false);
+    const [cookieConsent, setCookieConsent] = useState(false);
 
     function handleClick() {
         // Allow cookies and close the banner
-        setConsent(true);
+        setCookieConsent(true);
         setShowBanner(false);
 
         // Set cookie to remember user preference
         Cookies.set('cookie_consent', 'true', { expires: 365 });
     }
+
+    // Init MS Clarity
+    Clarity.init("pbheesnn9h");
+
+    // Update clarity cookie consent
+    useEffect(() => {
+        Clarity.consent(cookieConsent);
+    }, [cookieConsent]);
 
     // Check user preference for cookies
     // and show the banner if not set
@@ -25,7 +33,7 @@ export default function CookieBanner() {
         if (!cookieConsent) {
             setShowBanner(true);
         } else {
-            setConsent(true);
+            setCookieConsent(true);
         }
     }, []);
 
