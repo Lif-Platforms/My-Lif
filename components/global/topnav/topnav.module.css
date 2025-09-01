@@ -2,24 +2,32 @@
     display: flex;
     border-bottom: 1px solid #DCDCDC;
     justify-content: space-between;
+    align-items: center;
     z-index: 999;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+    width: 100%;
+    margin: 0;
 }
 
 .topnav .logo .logo {
-    width: 100px;
-    margin: 15px;
+    --logo-size: 35px;
+    width: var(--logo-size);
+    height: var(--logo-size);
     z-index: 0;
 }
 
 .topnav .logo .menu {
     width: 50px;
     height: 50px;
-    margin: 15px;
     z-index: 2;
 }
 
 .topnav .logo h1 {
-    margin: auto 0;
+    margin: auto 15px;
     z-index: 2;
 }
 
@@ -29,10 +37,10 @@
 }
 
 .topnav .avatar img {
-    width: 50px;
-    height: 50px;
+    --avatar-size: 35px;
+    width: var(--avatar-size);
+    height: var(--avatar-size);
     object-fit: cover;
-    margin-right: 30px;
     display: block;
     border-radius: 50%;
     cursor: pointer;
@@ -49,7 +57,7 @@
         opacity: 0;
     }
     100% {
-        top: 75px;
+        top: 60px;
         opacity: 1;
     }
 }
@@ -57,16 +65,20 @@
 .account_panel {
     background-color: white;
     box-shadow: 0 0 25px rgb(185, 185, 185);
-    border-radius: 1em;
+    border-radius: 0.5em;
     position: absolute;
-    right: 30px;
-    top: 75px;
+    right: 10px;
+    top: 60px;
     padding: 15px;
     animation: account_panel_animation 0.2s ease-in-out;
+    width: 300px;
 }
 
 .account_panel .header {
     display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
 }
 
 .account_panel .header img {
@@ -74,16 +86,17 @@
 }
 
 .account_panel .header h1 {
-    margin-left: 10px;
-    margin-top: auto;
-    margin-bottom: auto;
+    font-size: x-large;
+    font-weight: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .account_panel button {
     width: 100%;
-    margin-top: 20px;
     padding: 10px;
-    border-radius: 0.8em;
+    border-radius: 0.5em;
     background-color: #60ABFF;
     border: none;
     cursor: pointer;
@@ -92,15 +105,6 @@
 }
 
 @media screen and (max-width: 900px) {
-    .topnav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 999;
-        background-color: white;
-    }
-
     .side_nav {
         height: 100%;
     }

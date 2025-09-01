@@ -13,7 +13,7 @@
 
 @media screen and (max-width: 900px) {
     .page_content {
-        grid-template-columns: auto;
+        display: block;
     }
 }
 
@@ -24,6 +24,7 @@
     overflow-y: auto;
     height: 100%;
     box-sizing: border-box;
+    padding-top: 80px;
 }
 
 .title {
@@ -31,12 +32,6 @@
     display: block;
     font-size: 40px;
     font-weight: normal;
-}
-
-@media screen and (max-width: 900px) {
-    .content {
-        padding-top: 100px;
-    }
 }
 
 @media screen and (max-width: 550px) {
