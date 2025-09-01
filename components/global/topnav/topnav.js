@@ -33,7 +33,7 @@ function Logo({ logoState, setShowSideNav, showSideNav }) {
     if (logoState === 'logo') {
         return (
             <div className={styles.logo} onClick={handle_navigation}>
-                <img className={styles.logo} src='/logo.png' />
+                <img className={styles.logo} src='/logo-small.png' />
                 <h1>My Lif</h1>
             </div>
         );
