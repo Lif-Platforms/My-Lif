@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@microsoft/clarity": "^1.0.0",
-    "@sentry/nextjs": "^8",
+    "@sentry/nextjs": "^10",
     "js-cookie": "^3.0.5",
     "motion": "^12.23.12",
     "next": "14.2.35",
